@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hjsxvicrifpc"]
 
-[ext_resource type="Script" uid="uid://bm3gwkljtwyxl" path="res://scripts/menu.gd" id="1_vjb58"]
+[ext_resource type="Script" uid="uid://bm3gwkljtwyxl" path="res://features/menu/menu.gd" id="1_vjb58"]
 [ext_resource type="Texture2D" uid="uid://dhdapg02v4dts" path="res://assets/fundo-fabrica-menu.svg" id="1_yqeox"]
 [ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
 
