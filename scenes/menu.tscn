@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://hjsxvicrifpc"]
+
+[ext_resource type="Script" uid="uid://bm3gwkljtwyxl" path="res://scripts/menu.gd" id="1_vjb58"]
+[ext_resource type="Texture2D" uid="uid://dhdapg02v4dts" path="res://assets/fundo-fabrica-menu.svg" id="1_yqeox"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ejch"]
+font = ExtResource("3_con2f")
+font_size = 90
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v86rl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_70i5f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_13sgg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6lef"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mj5lg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce0il"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhnvy"]
+
+[node name="Menu" type="Control" unique_id=1948264440]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vjb58")
+
+[node name="BlackBackground" type="ColorRect" parent="." unique_id=522682342]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="TextureRect" parent="." unique_id=649685400]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -46.0
+offset_right = 1361.0
+offset_bottom = 722.0
+texture = ExtResource("1_yqeox")
+expand_mode = 1
+
+[node name="backggroundfade" type="ColorRect" parent="." unique_id=812857092]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 740.0
+color = Color(0, 0, 0, 0.14901961)
+
+[node name="GameTitle" type="Label" parent="." unique_id=2116938512]
+layout_mode = 0
+offset_left = 50.0
+offset_right = 1280.0
+offset_bottom = 230.0
+text = "Human Intelligence"
+label_settings = SubResource("LabelSettings_0ejch")
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="." unique_id=1709174563]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 400.0
+offset_right = 230.0
+offset_bottom = 460.0
+theme_override_fonts/font = ExtResource("3_con2f")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v86rl")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_70i5f")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_13sgg")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_i6lef")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_mj5lg")
+text = "JOGAR"
+alignment = 0
+
+[node name="ScoreButton" type="Button" parent="." unique_id=1099111842]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 460.0
+offset_right = 240.0
+offset_bottom = 520.0
+theme_override_fonts/font = ExtResource("3_con2f")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ce0il")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mhnvy")
+text = "PLACAR"
+alignment = 0
+
+[node name="CreditsButton" type="Button" parent="." unique_id=154511885]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 520.0
+offset_right = 300.0
+offset_bottom = 580.0
+theme_override_fonts/font = ExtResource("3_con2f")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ce0il")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mhnvy")
+text = "CREDITOS"
+alignment = 0
+
+[node name="ExitButton" type="Button" parent="." unique_id=1087458160]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 580.0
+offset_right = 282.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("3_con2f")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ce0il")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_mhnvy")
+text = "SAIR"
+alignment = 0

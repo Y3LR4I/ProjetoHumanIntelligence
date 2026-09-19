@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://p8xdeqwo3od"]
+
+[ext_resource type="Script" uid="uid://crlvaby6yrpj2" path="res://scripts/opening.gd" id="1_pk062"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="2_gafq3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0ejch"]
+font = ExtResource("2_gafq3")
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_pk062"]
+font_size = 50
+
+[node name="Opening" type="Control" unique_id=1116098084]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pk062")
+
+[node name="background" type="ColorRect" parent="." unique_id=1388764516]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.011764706, 0, 0, 1)
+
+[node name="Title" type="Label" parent="." unique_id=1461627281]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+label_settings = SubResource("LabelSettings_0ejch")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TypeTimer" type="Timer" parent="." unique_id=108917977]
+wait_time = 0.16
+
+[node name="CursorTimer" type="Timer" parent="." unique_id=1769762012]
+wait_time = 0.5
+
+[node name="Cursor" type="Label" parent="." unique_id=1029299701]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 706.0
+text = "                                        |"
+label_settings = SubResource("LabelSettings_pk062")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TransitionTimer" type="Timer" parent="." unique_id=2037501970]
+wait_time = 3.0
+
+[connection signal="timeout" from="TypeTimer" to="." method="_on_type_timer_timeout"]
+[connection signal="timeout" from="CursorTimer" to="." method="_on_cursor_timer_timeout"]
+[connection signal="timeout" from="TransitionTimer" to="." method="_on_transition_timer_timeout"]
