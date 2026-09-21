@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://bb1jdbgs72l8m"]
+
+[ext_resource type="Script" uid="uid://cekysduiquxvk" path="res://resources/enemy_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+display_name = "Drone com Mísseis"
+max_health = 5.0
+move_speed = 65.0
+contact_damage = 3.0
+has_ranged_attack = true
+ranged_damage = 0.5
+ranged_interval = 2.5
+points_value = 25
+color = Color(0.55, 0.35, 0.85, 1)
