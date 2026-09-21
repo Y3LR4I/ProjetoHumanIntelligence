@@ -20,6 +20,8 @@ func _ready():
 	configurar_botao(credits_button, "CREDITOS", "CREDITOS")
 	configurar_botao(exit_button, "SAIR", "SAIR")
 
+	play_button.pressed.connect(_on_play_button_pressed)
+
 
 func _animar_entrada():
 	var elementos = [background, game_title, play_button, score_button, credits_button, exit_button]
@@ -60,3 +62,7 @@ func _animar_tamanho_fonte(botao: Button, de: int, para: int):
 		para,
 		0.15
 	)
+
+
+func _on_play_button_pressed():
+	SceneManager.ir_para_jogo()

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dslskurkumjgl"]
+
+[ext_resource type="Script" uid="uid://een0upnc87up" path="res://resources/level_data.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://b2xl0pr7c2nlk" path="res://resources/enemy_placement.gd" id="2_placement_script"]
+[ext_resource type="Resource" uid="uid://dpi5hbrb2qm5l" path="res://resources/enemies/robo_manutencao.tres" id="3_robo_manutencao"]
+[ext_resource type="Resource" uid="uid://4l3vpmkbew0o" path="res://resources/enemies/drone_explosivo.tres" id="4_drone_explosivo"]
+
+[sub_resource type="Resource" id="EnemyPlacement_1"]
+script = ExtResource("2_placement_script")
+dados = ExtResource("3_robo_manutencao")
+posicao = Vector2(600, 400)
+
+[sub_resource type="Resource" id="EnemyPlacement_2"]
+script = ExtResource("2_placement_script")
+dados = ExtResource("4_drone_explosivo")
+posicao = Vector2(950, 650)
+
+[sub_resource type="Resource" id="EnemyPlacement_3"]
+script = ExtResource("2_placement_script")
+dados = ExtResource("3_robo_manutencao")
+posicao = Vector2(1400, 500)
+
+[resource]
+script = ExtResource("1_script")
+nome_exibicao = "Fase 1"
+posicao_inicial_jogador = Vector2(150, 540)
+posicao_porta = Vector2(1770, 540)
+inimigos = Array[ExtResource("2_placement_script")]([SubResource("EnemyPlacement_1"), SubResource("EnemyPlacement_2"), SubResource("EnemyPlacement_3")])

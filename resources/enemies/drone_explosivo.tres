@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://4l3vpmkbew0o"]
+
+[ext_resource type="Script" uid="uid://cekysduiquxvk" path="res://resources/enemy_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+display_name = "Drone Explosivo"
+max_health = 3.0
+points_value = 15
+color = Color(0.9, 0.55, 0.2, 1)
+visual_size = Vector2(44, 44)

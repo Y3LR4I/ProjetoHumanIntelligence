@@ -25,4 +25,4 @@ func _on_cursor_timer_timeout() -> void:
 	cursor.visible = !cursor.visible
 
 func _on_transition_timer_timeout() -> void:
-	get_tree().change_scene_to_file("res://features/menu/menu.tscn")
+	SceneManager.ir_para_menu()

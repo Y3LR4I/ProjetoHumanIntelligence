@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://dpi5hbrb2qm5l"]
+
+[ext_resource type="Script" uid="uid://cekysduiquxvk" path="res://resources/enemy_data.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+display_name = "Robô de Manutenção"
+max_health = 4.0
+move_speed = 70.0
+color = Color(0.55, 0.6, 0.68, 1)
+visual_size = Vector2(40, 56)
