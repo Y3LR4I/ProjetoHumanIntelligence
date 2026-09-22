@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://cfijqwwaea1l3"
-path="res://.godot/imported/Heat Racer Trial.otf-13b9acd3a6eecaa6a482087b43de17de.fontdata"
+path="res://.godot/imported/Heat Racer Trial.otf-dd560c0e38d6b8155fe260625d4fa207.fontdata"
 
 [deps]
 
-source_file="res://assets/Heat Racer Trial.otf"
-dest_files=["res://.godot/imported/Heat Racer Trial.otf-13b9acd3a6eecaa6a482087b43de17de.fontdata"]
+source_file="res://assets/fonts/Heat Racer Trial.otf"
+dest_files=["res://.godot/imported/Heat Racer Trial.otf-dd560c0e38d6b8155fe260625d4fa207.fontdata"]
 
 [params]
 

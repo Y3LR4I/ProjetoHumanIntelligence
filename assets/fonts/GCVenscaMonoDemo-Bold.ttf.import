@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://lduo75r2gx8l"
-path="res://.godot/imported/GCVenscaMonoDemo-Bold.ttf-fbae3ba69e267578a078fe2e124b882c.fontdata"
+path="res://.godot/imported/GCVenscaMonoDemo-Bold.ttf-9b3ec5ff12d8d9cbb02d944af4e09439.fontdata"
 
 [deps]
 
-source_file="res://assets/GCVenscaMonoDemo-Bold.ttf"
-dest_files=["res://.godot/imported/GCVenscaMonoDemo-Bold.ttf-fbae3ba69e267578a078fe2e124b882c.fontdata"]
+source_file="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf"
+dest_files=["res://.godot/imported/GCVenscaMonoDemo-Bold.ttf-9b3ec5ff12d8d9cbb02d944af4e09439.fontdata"]
 
 [params]
 
