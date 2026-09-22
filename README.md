@@ -19,23 +19,41 @@ Dentro dela, três padrões clássicos (GoF) organizam o código:
 
 ```
 ProjetoHumanIntelligence/
-├── autoloads/              # Singletons globais (GameManager, SceneManager, AudioManager)
-├── features/                # Uma pasta por tela/domínio do jogo
-│   ├── boot/                 # tela de abertura
+├── autoloads/
+│   ├── game_manager.gd
+│   ├── scene_manager.gd
+│   └── audio_manager.gd
+│
+├── features/
+│   ├── boot/
 │   │   ├── boot.tscn
 │   │   └── boot.gd
+│   │
 │   ├── menu/
 │   │   ├── menu.tscn
 │   │   └── menu.gd
-│   └── game/                 # gameplay principal
-│       ├── game.tscn
-│       └── game.gd
-├── ui/                       # Componentes de UI reutilizáveis entre features
+│   │
+│   ├── game/
+│   │   ├── game.tscn
+│   │   └── game.gd
+│   │
+│   ├── scoreboard/
+│   │   ├── scoreboard.tscn
+│   │   └── scoreboard.gd
+│   │
+│   └── credits/
+│       ├── credits.tscn
+│       └── credits.gd
+│
+├── ui/
 │   └── components/
-├── resources/                 # Custom Resources (.tres/.gd)
+│
+├── resources/
+│
 ├── shaders/
+│
 └── assets/
-	├── fonts/
-	├── textures/
-	└── audio/
+    ├── fonts/
+    ├── textures/
+    └── audio/
 ```
