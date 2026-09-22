@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c8tfhfxqwi0w"]
+
+[ext_resource type="Script" uid="uid://cxtgcky1k1llg" path="res://features/game/components/movement/horizontal_movement/horizontal_movement.gd" id="1_w0wjx"]
+
+[node name="HorizontalMovement" type="Node" unique_id=2086266306]
+script = ExtResource("1_w0wjx")

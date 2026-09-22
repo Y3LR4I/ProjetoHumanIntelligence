@@ -1,3 +1,12 @@
 [gd_scene format=3 uid="uid://s0sn6py8v3im"]
 
+[ext_resource type="PackedScene" uid="uid://cjnfcp8hku7qg" path="res://features/game/entities/player/player.tscn" id="1_v3hai"]
+
 [node name="Game" type="Node2D" unique_id=1937407610]
+
+[node name="background" type="ColorRect" parent="." unique_id=1701001059]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="player" parent="." unique_id=917865365 instance=ExtResource("1_v3hai")]
+position = Vector2(640, 690)
