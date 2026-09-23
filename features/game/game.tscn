@@ -2,12 +2,20 @@
 
 [ext_resource type="Texture2D" uid="uid://ba6d7ij566tnh" path="res://assets/textures/fabrica-new.svg" id="1_1j583"]
 [ext_resource type="PackedScene" uid="uid://cjnfcp8hku7qg" path="res://features/game/entities/player/player.tscn" id="1_v3hai"]
+[ext_resource type="PackedScene" uid="uid://bw72itpj71v0p" path="res://features/game/entities/enimies/maintenance_robot/MaintenanceRobot.tscn" id="3_sy8jn"]
+[ext_resource type="PackedScene" uid="uid://sey37acon3ao" path="res://features/game/entities/projectiles/laser/laser.tscn" id="4_03bmb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ejch"]
 size = Vector2(313.5, 714.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwydt"]
 size = Vector2(323, 716)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_emv1h"]
+size = Vector2(643, 39)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o258m"]
+size = Vector2(662, 40)
 
 [node name="Game" type="Node2D" unique_id=1937407610]
 
@@ -17,6 +25,7 @@ texture = ExtResource("1_1j583")
 
 [node name="player" parent="." unique_id=917865365 instance=ExtResource("1_v3hai")]
 position = Vector2(640, 680)
+laser_scene = ExtResource("4_03bmb")
 
 [node name="boundaries" type="Node2D" parent="." unique_id=1974617732]
 
@@ -31,3 +40,18 @@ shape = SubResource("RectangleShape2D_0ejch")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/RightWall" unique_id=406466559]
 position = Vector2(1120.5, 361)
 shape = SubResource("RectangleShape2D_jwydt")
+
+[node name="InferiorWall" type="StaticBody2D" parent="boundaries" unique_id=1453333149]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/InferiorWall" unique_id=1323507529]
+position = Vector2(636.5, 736.5)
+shape = SubResource("RectangleShape2D_emv1h")
+
+[node name="MaintenanceRobot" parent="." unique_id=1257498777 instance=ExtResource("3_sy8jn")]
+position = Vector2(537, 38)
+
+[node name="LaserExit" type="Area2D" parent="." unique_id=976299699]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserExit" unique_id=1277033712]
+position = Vector2(634, -96)
+shape = SubResource("RectangleShape2D_o258m")
