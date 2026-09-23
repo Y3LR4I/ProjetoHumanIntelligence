@@ -1,3 +1,33 @@
 [gd_scene format=3 uid="uid://s0sn6py8v3im"]
 
+[ext_resource type="Texture2D" uid="uid://ba6d7ij566tnh" path="res://assets/textures/fabrica-new.svg" id="1_1j583"]
+[ext_resource type="PackedScene" uid="uid://cjnfcp8hku7qg" path="res://features/game/entities/player/player.tscn" id="1_v3hai"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ejch"]
+size = Vector2(313.5, 714.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwydt"]
+size = Vector2(323, 716)
+
 [node name="Game" type="Node2D" unique_id=1937407610]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772301149]
+position = Vector2(640, 360)
+texture = ExtResource("1_1j583")
+
+[node name="player" parent="." unique_id=917865365 instance=ExtResource("1_v3hai")]
+position = Vector2(640, 680)
+
+[node name="boundaries" type="Node2D" parent="." unique_id=1974617732]
+
+[node name="LeftWall" type="StaticBody2D" parent="boundaries" unique_id=261627933]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/LeftWall" unique_id=1927968658]
+position = Vector2(157.25, 360)
+shape = SubResource("RectangleShape2D_0ejch")
+
+[node name="RightWall" type="StaticBody2D" parent="boundaries" unique_id=650063076]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundaries/RightWall" unique_id=406466559]
+position = Vector2(1120.5, 361)
+shape = SubResource("RectangleShape2D_jwydt")
