@@ -17,6 +17,9 @@ size = Vector2(643, 39)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o258m"]
 size = Vector2(662, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ags6"]
+size = Vector2(643, 65)
+
 [node name="Game" type="Node2D" unique_id=1937407610]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772301149]
@@ -55,3 +58,9 @@ position = Vector2(537, 38)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaserExit" unique_id=1277033712]
 position = Vector2(634, -96)
 shape = SubResource("RectangleShape2D_o258m")
+
+[node name="EnemyProjectileExit" type="Area2D" parent="." unique_id=129625118]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyProjectileExit" unique_id=883341187]
+position = Vector2(636.5, 756.5)
+shape = SubResource("RectangleShape2D_3ags6")
