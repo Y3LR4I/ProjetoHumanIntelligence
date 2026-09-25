@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bw72itpj71v0p"]
+
+[ext_resource type="Script" uid="uid://o486i7411m4m" path="res://features/game/entities/enimies/maintenance_robot/maintenance_robot.gd" id="1_bvume"]
+[ext_resource type="Texture2D" uid="uid://bjpyiuhlgdjpn" path="res://assets/textures/maintenance-robot.svg" id="1_wukdb"]
+[ext_resource type="PackedScene" uid="uid://uqip3qo03skn" path="res://features/game/entities/projectiles/wrench/wrench.tscn" id="2_85asq"]
+[ext_resource type="PackedScene" uid="uid://bhltn3luo1gid" path="res://features/game/components/movement/vertical_movement/vertical_movement.tscn" id="2_k7tpd"]
+[ext_resource type="PackedScene" uid="uid://bvbmnuda3eck0" path="res://features/game/components/health/health_component.tscn" id="3_p4nxy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m3jih"]
+size = Vector2(49, 47)
+
+[node name="MaintenanceRobot" type="CharacterBody2D" unique_id=1257498777]
+script = ExtResource("1_bvume")
+projectile_scene = ExtResource("2_85asq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=721048771]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_wukdb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=932410602]
+position = Vector2(-0.5, 7.5)
+shape = SubResource("RectangleShape2D_m3jih")
+
+[node name="verical_movement" parent="." unique_id=1349301817 instance=ExtResource("2_k7tpd")]
+speed = 50.0
+
+[node name="HealthComponent" parent="." unique_id=1339293429 instance=ExtResource("3_p4nxy")]
+max_health = 3.0
+
+[node name="ProjectileSpawn" type="Marker2D" parent="." unique_id=1382451226]
+position = Vector2(0, 27)
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=352452138]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

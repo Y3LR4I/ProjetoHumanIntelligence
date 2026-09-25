@@ -1,19 +1,24 @@
 [gd_scene format=3 uid="uid://cjnfcp8hku7qg"]
 
+[ext_resource type="Script" uid="uid://ch6gld14lbof" path="res://features/game/entities/player/player.gd" id="1_ouxun"]
 [ext_resource type="Texture2D" uid="uid://7buqynts53b4" path="res://assets/textures/robozin-player.svg" id="1_usipw"]
 [ext_resource type="PackedScene" uid="uid://c8tfhfxqwi0w" path="res://features/game/components/movement/horizontal_movement/horizontal_movement.tscn" id="2_usipw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emv1h"]
-size = Vector2(42, 38)
+size = Vector2(60, 44)
 
 [node name="player" type="CharacterBody2D" unique_id=917865365]
+script = ExtResource("1_ouxun")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=620883665]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("1_usipw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=521171520]
-position = Vector2(-2, 5)
+position = Vector2(2, 7)
 shape = SubResource("RectangleShape2D_emv1h")
 
 [node name="HorizontalMovement" parent="." unique_id=2086266306 instance=ExtResource("2_usipw")]
+
+[node name="LaserSpawn" type="Marker2D" parent="." unique_id=542593509]
+position = Vector2(-35, -15)
