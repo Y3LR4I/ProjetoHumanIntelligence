@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bhltn3luo1gid"]
+
+[ext_resource type="Script" uid="uid://bvcerep2fkpn5" path="res://features/game/components/movement/vertical_movement/vertical_movement.gd" id="1_5ha6j"]
+
+[node name="verical_movement" type="Node" unique_id=1349301817]
+script = ExtResource("1_5ha6j")
