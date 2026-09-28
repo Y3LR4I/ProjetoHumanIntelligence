@@ -53,7 +53,7 @@ ProjetoHumanIntelligence/
 ├── shaders/
 │
 └── assets/
-    ├── fonts/
-    ├── textures/
-    └── audio/
+	├── fonts/
+	├── textures/
+	└── audio/
 ```

@@ -44,6 +44,10 @@ shoot={
 ]
 }
 
+[autoload]
+
+ScoreboardManager="*res://autoloads/scoreboard_manager.gd"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
