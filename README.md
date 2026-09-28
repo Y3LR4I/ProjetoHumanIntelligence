@@ -19,10 +19,13 @@ Dentro dela, três padrões clássicos (GoF) organizam o código:
 
 ```
 ProjetoHumanIntelligence/
-├── autoloads/
-│   ├── game_manager.gd
-│   ├── scene_manager.gd
-│   └── audio_manager.gd
+│
+├── assets/
+│   └── textures/
+│       ├── robozin.svg
+│       ├── fabrica-new.svg
+│       ├── [sprites dos inimigos]
+│       └── [outras imagens]
 │
 ├── features/
 │   ├── boot/
@@ -33,27 +36,44 @@ ProjetoHumanIntelligence/
 │   │   ├── menu.tscn
 │   │   └── menu.gd
 │   │
-│   ├── game/
-│   │   ├── game.tscn
-│   │   └── game.gd
-│   │
-│   ├── scoreboard/
-│   │   ├── scoreboard.tscn
-│   │   └── scoreboard.gd
-│   │
-│   └── credits/
-│       ├── credits.tscn
-│       └── credits.gd
+│   └── game/
+│       ├── game.tscn
+│       ├── game.gd
+│       │
+│       ├── entities/
+│       │   │
+│       │   ├── player/
+│       │   │   ├── player.tscn
+│       │   │   └── player.gd
+│       │   │
+│       │   ├── enemies/
+│       │   │   └── maintenance_robot/
+│       │   │       ├── maintenance_robot.tscn
+│       │   │       └── maintenance_robot.gd
+│       │   │
+│       │   └── projectiles/
+│       │       ├── laser/
+│       │       │   ├── laser.tscn
+│       │       │   └── laser.gd
+│       │       │
+│       │       └── wrench/
+│       │           ├── wrench.tscn
+│       │           └── wrench.gd
+│       │
+│       └── components/
+│           ├── movement/
+│           │   ├── horizontal-movement/
+│           │   │   ├── horizontal-movement.tscn
+│           │   │   └── horizontal-movement.gd
+│           │   │
+│           │   └── vertical-movement/
+│           │       ├── vertical-movement.tscn
+│           │       └── vertical-movement.gd
+│           │
+│           └── health/
+│               ├── health_component.tscn
+│               └── health_component.gd
 │
-├── ui/
-│   └── components/
-│
-├── resources/
-│
-├── shaders/
-│
-└── assets/
-	├── fonts/
-	├── textures/
-	└── audio/
+├── project.godot
+└── [arquivos/pastas auxiliares do Godot]
 ```
