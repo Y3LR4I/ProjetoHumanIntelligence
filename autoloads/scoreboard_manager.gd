@@ -1,8 +1,5 @@
 extends Node
 
-## Autoload responsável por falar com o Supabase (tabela `scores`).
-## Não decide COMO o placar é calculado — só envia/recebe o valor pronto.
-
 signal score_submitted(success: bool)
 signal scores_received(scores: Array)
 
