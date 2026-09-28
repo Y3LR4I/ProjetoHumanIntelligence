@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://plg1priu63ub" path="res://assets/textures/maintenance-robot-1.svg" id="4_whlyd"]
 [ext_resource type="Texture2D" uid="uid://nciq8aq3h8uv" path="res://assets/textures/maintenance-robot-2.svg" id="5_16tq6"]
 [ext_resource type="Texture2D" uid="uid://c004u8j6qdo8t" path="res://assets/textures/maintenance-robot-3.svg" id="6_afgtb"]
+[ext_resource type="PackedScene" uid="uid://cpuewrkwlc3k1" path="res://features/game/components/boundary-damage/boundary_damage.tscn" id="9_16tq6"]
+[ext_resource type="Script" uid="uid://cks2cxcvk1cgy" path="res://features/game/components/boundary-damage/boundary_damage.gd" id="10_afgtb"]
+[ext_resource type="PackedScene" uid="uid://dsv8xdxidc680" path="res://features/game/components/score/score_component.tscn" id="11_25nbm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m3jih"]
 size = Vector2(49, 47)
@@ -29,6 +32,11 @@ shape = SubResource("RectangleShape2D_m3jih")
 speed = 80.0
 
 [node name="HealthComponent" parent="." unique_id=1339293429 instance=ExtResource("3_p4nxy")]
+
+[node name="BoundaryDamage" parent="." unique_id=1949294605 instance=ExtResource("9_16tq6")]
+script = ExtResource("10_afgtb")
+
+[node name="ScoreComponent" parent="." unique_id=902718286 instance=ExtResource("11_25nbm")]
 
 [node name="ProjectileSpawn" type="Marker2D" parent="." unique_id=1382451226]
 position = Vector2(0, 27)

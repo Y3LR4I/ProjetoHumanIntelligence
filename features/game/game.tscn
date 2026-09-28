@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://s0sn6py8v3im"]
 
 [ext_resource type="Texture2D" uid="uid://ba6d7ij566tnh" path="res://assets/textures/fabrica-new.svg" id="1_1j583"]
+[ext_resource type="Script" uid="uid://cp5cm1bxsyhbt" path="res://features/game/game.gd" id="1_tripy"]
 [ext_resource type="PackedScene" uid="uid://cjnfcp8hku7qg" path="res://features/game/entities/player/player.tscn" id="1_v3hai"]
 [ext_resource type="PackedScene" uid="uid://bw72itpj71v0p" path="res://features/game/entities/enimies/maintenance_robot/MaintenanceRobot.tscn" id="3_sy8jn"]
 [ext_resource type="PackedScene" uid="uid://sey37acon3ao" path="res://features/game/entities/projectiles/laser/laser.tscn" id="4_03bmb"]
@@ -14,6 +15,9 @@ size = Vector2(323, 716)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emv1h"]
 size = Vector2(643, 15)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aq72e"]
+size = Vector2(642.5, 61)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o258m"]
 size = Vector2(662, 40)
 
@@ -21,6 +25,7 @@ size = Vector2(662, 40)
 size = Vector2(643, 15)
 
 [node name="Game" type="Node2D" unique_id=1937407610]
+script = ExtResource("1_tripy")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772301149]
 position = Vector2(640, 360)
@@ -53,6 +58,12 @@ shape = SubResource("RectangleShape2D_emv1h")
 [node name="MaintenanceRobot" parent="." unique_id=1257498777 instance=ExtResource("3_sy8jn")]
 position = Vector2(537, 38)
 
+[node name="BoundaryDamageArea" type="Area2D" parent="." unique_id=1935172483]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryDamageArea" unique_id=1268155143]
+position = Vector2(636.75, 684.5)
+shape = SubResource("RectangleShape2D_aq72e")
+
 [node name="LaserExit" type="Area2D" parent="." unique_id=976299699]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaserExit" unique_id=1277033712]
@@ -64,3 +75,5 @@ shape = SubResource("RectangleShape2D_o258m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyProjectileExit" unique_id=883341187]
 position = Vector2(636.5, 747.5)
 shape = SubResource("RectangleShape2D_3ags6")
+
+[connection signal="body_entered" from="BoundaryDamageArea" to="." method="_on_boundary_damage_area_body_entered"]
