@@ -8,6 +8,10 @@ const JUMP_VELOCITY = -400.0
 
 @onready var laser_spawn = $LaserSpawn
 
+@onready var health_component = $HealthComponent
+
+func _ready():
+	health_component.health_changed.connect(_on_health_changed)
 
 func _physics_process(_delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -27,3 +31,6 @@ func atirar():
 	laser.global_position = laser_spawn.global_position
 	
 	get_tree().current_scene.add_child(laser)
+	
+func _on_health_changed(health: float) -> void:
+	print("Vida do Player: ", health)

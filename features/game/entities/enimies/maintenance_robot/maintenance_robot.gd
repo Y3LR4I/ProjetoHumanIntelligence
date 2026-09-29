@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var sprite = $Sprite2D
 @onready var health_component = $HealthComponent
 @onready var vertical_movement = $verical_movement
+@onready var shoot_timer = $ShootTimer
 
 func _ready():
 	health_component.health_changed.connect(_on_health_changed)
@@ -26,6 +27,9 @@ func _on_health_changed(health: float) -> void:
 	
 	sprite.texture = health_sprites[index]
 	
+	if index == 3:
+		shoot_timer.stop()
+	
 	if health > 3.0:
 		vertical_movement.speed = 80.0
 	elif health > 2.0:
@@ -34,3 +38,17 @@ func _on_health_changed(health: float) -> void:
 		vertical_movement.speed = 20.0
 	else:
 		vertical_movement.speed = 2.0
+		
+func destruir_na_borda() -> void:
+	shoot_timer.stop()
+	await get_tree().create_timer(0.3).timeout
+	
+	sprite.texture = health_sprites[health_sprites.size() - 2]
+	
+	await get_tree().create_timer(0.2).timeout
+	
+	sprite.texture = health_sprites[health_sprites.size() - 1]
+	
+	await get_tree().create_timer(0.2).timeout
+	
+	queue_free()
