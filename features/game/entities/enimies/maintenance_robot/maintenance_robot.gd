@@ -27,6 +27,9 @@ func _on_health_changed(health: float) -> void:
 	
 	sprite.texture = health_sprites[index]
 	
+	if index == 3:
+		shoot_timer.stop()
+	
 	if health > 3.0:
 		vertical_movement.speed = 80.0
 	elif health > 2.0:
