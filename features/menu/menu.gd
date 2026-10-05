@@ -20,6 +20,9 @@ func _ready():
 	configurar_botao(credits_button, "CREDITOS", "CREDITOS")
 	configurar_botao(exit_button, "SAIR", "SAIR")
 
+	score_button.pressed.connect(_on_score_pressed)
+	exit_button.pressed.connect(_on_exit_pressed)
+
 
 func _animar_entrada():
 	var elementos = [background, game_title, play_button, score_button, credits_button, exit_button]
@@ -55,8 +58,20 @@ func _animar_tamanho_fonte(botao: Button, de: int, para: int):
 	var tween = create_tween()
 	tween.tween_method(
 		func(tamanho):
-			botao.add_theme_font_size_override("font_size", tamanho),
+			botao.add_theme_font_size_override("font_size", tamanho), 
 		de,
 		para,
 		0.15
 	)
+
+func _on_score_pressed():
+	print("Score button pressed, going to scoreboard")
+	if ResourceLoader.exists("res://features/scoreboard/scoreboard.tscn"):
+		print("Scene file exists, changing scene...")
+		get_tree().change_scene_to_file("res://features/scoreboard/scoreboard.tscn")
+	else:
+		print("ERROR: Scene file not found!")
+		push_error("Scoreboard scene not found at res://features/scoreboard/scoreboard.tscn")
+
+func _on_exit_pressed():
+	get_tree().quit()

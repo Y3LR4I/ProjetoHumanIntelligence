@@ -25,7 +25,7 @@ func submit_score(player_name: String, score: int) -> void:
 	if error != OK:
 		push_error("ScoreboardManager: falha ao iniciar submit_score (%s)" % error)
 		http_request.queue_free()
-		score_submitted.emit(false)
+		score_submitted.emit(false)   
 
 
 func get_top_scores(limit: int = 10) -> void:
