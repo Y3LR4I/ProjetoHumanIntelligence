@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://q2lcvkqx3dwn"]
 
-[ext_resource type="Script" path="res://scripts/opening.gd" id="1_g1bgr"]
-[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="2_fnsxc"]
+[ext_resource type="Script" path="res://features/boot/boot.gd" id="1_g1bgr"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="2_fnsxc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0ejch"]
 font = ExtResource("2_fnsxc")

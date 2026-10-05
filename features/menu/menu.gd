@@ -22,7 +22,6 @@ func _ready():
 
 	score_button.pressed.connect(_on_score_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
-	print("Menu ready, score_button connected:", score_button.is_connected("pressed", _on_score_pressed))
 
 
 func _animar_entrada():

@@ -9,7 +9,7 @@ const FADE_IN_DURATION = 1.5
 @onready var title = $Title
 @onready var background = $Background
 @onready var fade_overlay = $FadeOverlay
-
+@onready var empty_label = $EmptyLabel
 
 
 func _ready():
@@ -18,13 +18,15 @@ func _ready():
 	_animar_entrada()
 	configurar_botao(back_button, "VOLTAR", "VOLTAR")
 	back_button.pressed.connect(_on_back_pressed)
-	print("Scoreboard ready, back button connected")
 
 func _on_scores_received(scores: Array):
 	if scores.is_empty():
-		print("Nenhum score recebido")
+		empty_label.visible = true
+		score_container.visible = false
 		return
 	
+	empty_label.visible = false
+	score_container.visible = true
 	_popular_placar_com_dados_reais(scores)
 
 func _popular_placar_com_dados_reais(scores: Array):
@@ -38,8 +40,6 @@ func _popular_placar_com_dados_reais(scores: Array):
 		var score = data.get("score", 0)
 		var entry = _criar_entrada_placar(rank, name, score)
 		score_container.add_child(entry)
-	print("Placar populado com %d entradas do servidor" % scores.size())
-
 
 
 func _criar_entrada_placar(rank: int, name: String, score: int) -> HBoxContainer:
@@ -75,7 +75,7 @@ func _criar_entrada_placar(rank: int, name: String, score: int) -> HBoxContainer
 	return container
 
 func _animar_entrada():
-	var elementos = [background, fade_overlay, title, score_container, back_button]
+	var elementos = [background, fade_overlay, title, score_container, back_button, empty_label]
 
 	for elemento in elementos:
 		elemento.modulate.a = 0.0
@@ -111,5 +111,4 @@ func _animar_tamanho_fonte(botao: Button, de: int, para: int):
 	)
 
 func _on_back_pressed():
-	print("Back button pressed, returning to menu")
 	get_tree().change_scene_to_file("res://features/menu/menu.tscn")
