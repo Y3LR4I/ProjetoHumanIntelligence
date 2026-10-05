@@ -10,29 +10,37 @@ const FADE_IN_DURATION = 1.5
 @onready var background = $Background
 @onready var fade_overlay = $FadeOverlay
 
-var mock_scores = [
-	{ "rank": 1, "name": "PlayerOne", "score": 9850 },
-	{ "rank": 2, "name": "GameMaster", "score": 8720 },
-	{ "rank": 3, "name": "SpeedRunner", "score": 7650 },
-	{ "rank": 4, "name": "ProGamer", "score": 6540 },
-	{ "rank": 5, "name": "Newbie", "score": 5430 },
-]
+
 
 func _ready():
-	_popular_placar()
+	ScoreboardManager.scores_received.connect(_on_scores_received)
+	ScoreboardManager.get_top_scores(10)
 	_animar_entrada()
 	configurar_botao(back_button, "VOLTAR", "VOLTAR")
 	back_button.pressed.connect(_on_back_pressed)
 	print("Scoreboard ready, back button connected")
 
-func _popular_placar():
+func _on_scores_received(scores: Array):
+	if scores.is_empty():
+		print("Nenhum score recebido")
+		return
+	
+	_popular_placar_com_dados_reais(scores)
+
+func _popular_placar_com_dados_reais(scores: Array):
 	for i in range(score_container.get_child_count()):
 		score_container.get_child(i).queue_free()
-
-	for data in mock_scores:
-		var entry = _criar_entrada_placar(data.rank, data.name, data.score)
+	
+	for i in range(scores.size()):
+		var data = scores[i]
+		var rank = i + 1
+		var name = data.get("player_name", "Unknown")
+		var score = data.get("score", 0)
+		var entry = _criar_entrada_placar(rank, name, score)
 		score_container.add_child(entry)
-	print("Placar populado com %d entradas" % mock_scores.size())
+	print("Placar populado com %d entradas do servidor" % scores.size())
+
+
 
 func _criar_entrada_placar(rank: int, name: String, score: int) -> HBoxContainer:
 	var container = HBoxContainer.new()
