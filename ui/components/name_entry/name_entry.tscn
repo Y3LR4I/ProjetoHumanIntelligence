@@ -1,0 +1,106 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/components/name_entry/name_entry.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="2_font"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("2_font")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_score"]
+font = ExtResource("2_font")
+font_size = 36
+
+[sub_resource type="LabelSettings" id="LabelSettings_status"]
+font = ExtResource("2_font")
+font_size = 24
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_normal"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hover"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_input"]
+bg_color = Color(0, 0, 0, 0.4)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.6)
+content_margin_left = 16.0
+content_margin_right = 16.0
+
+[node name="NameEntry" type="Control" unique_id=4102736650]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="DimBackground" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.78)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 140.0
+offset_right = 1280.0
+offset_bottom = 220.0
+text = "FIM DE JOGO"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 240.0
+offset_right = 1280.0
+offset_bottom = 290.0
+text = "PONTUAÇÃO: 0"
+label_settings = SubResource("LabelSettings_score")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 380.0
+offset_right = 840.0
+offset_bottom = 436.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_input")
+theme_override_styles/focus = SubResource("StyleBoxFlat_input")
+placeholder_text = "SEU NOME"
+alignment = 1
+max_length = 20
+
+[node name="SubmitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 460.0
+offset_right = 790.0
+offset_bottom = 520.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_normal")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hover")
+text = "ENVIAR"
+alignment = 1
+
+[node name="StatusLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 540.0
+offset_right = 1280.0
+offset_bottom = 580.0
+text = ""
+label_settings = SubResource("LabelSettings_status")
+horizontal_alignment = 1
+vertical_alignment = 1

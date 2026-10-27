@@ -1,0 +1,69 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://features/game/entities/enimies/robo_cachorro/robo_cachorro.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-1.png" id="12_walk0"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-2.png" id="13_walk1"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-3.png" id="14_walk2"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-1-dmg1.png" id="15_s1f0"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-2-dmg1.png" id="16_s1f1"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-3-dmg1.png" id="17_s1f2"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-1-dmg2.png" id="18_s2f0"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-2-dmg2.png" id="19_s2f1"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-3-dmg2.png" id="20_s2f2"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-1-dmg3.png" id="21_s3f0"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-2-dmg3.png" id="22_s3f1"]
+[ext_resource type="Texture2D" path="res://assets/textures/robo-cachorro-walk-down-3-dmg3.png" id="23_s3f2"]
+[ext_resource type="PackedScene" path="res://features/game/entities/projectiles/parafuso/parafuso.tscn" id="6_parafuso"]
+[ext_resource type="PackedScene" uid="uid://bvbmnuda3eck0" path="res://features/game/components/health/health_component.tscn" id="7_health"]
+[ext_resource type="PackedScene" path="res://features/game/components/movement/zigzag_movement/zigzag_movement.tscn" id="8_zigzag"]
+[ext_resource type="PackedScene" uid="uid://cpuewrkwlc3k1" path="res://features/game/components/boundary-damage/boundary_damage.tscn" id="9_boundary"]
+[ext_resource type="Script" uid="uid://cks2cxcvk1cgy" path="res://features/game/components/boundary-damage/boundary_damage.gd" id="10_boundary_script"]
+[ext_resource type="PackedScene" uid="uid://dsv8xdxidc680" path="res://features/game/components/score/score_component.tscn" id="11_score"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cachorro"]
+size = Vector2(70, 50)
+
+[node name="RoboCachorro" type="CharacterBody2D"]
+script = ExtResource("1_script")
+projectile_scene = ExtResource("6_parafuso")
+walk_frames_stage0 = Array[Texture2D]([ExtResource("12_walk0"), ExtResource("13_walk1"), ExtResource("14_walk2")])
+walk_frames_stage1 = Array[Texture2D]([ExtResource("15_s1f0"), ExtResource("16_s1f1"), ExtResource("17_s1f2")])
+walk_frames_stage2 = Array[Texture2D]([ExtResource("18_s2f0"), ExtResource("19_s2f1"), ExtResource("20_s2f2")])
+walk_frames_stage3 = Array[Texture2D]([ExtResource("21_s3f0"), ExtResource("22_s3f1"), ExtResource("23_s3f2")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("12_walk0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_cachorro")
+
+[node name="zigzag_movement" parent="." instance=ExtResource("8_zigzag")]
+vertical_speed = 80.0
+horizontal_amplitude = 70.0
+horizontal_frequency = 0.9
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_health")]
+laser_damage = 1.0
+
+[node name="BoundaryDamage" parent="." instance=ExtResource("9_boundary")]
+script = ExtResource("10_boundary_script")
+damage = 2.0
+
+[node name="ScoreComponent" parent="." instance=ExtResource("11_score")]
+score = 300
+
+[node name="ProjectileSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 35)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.2
+autostart = true
+
+[node name="WalkTimer" type="Timer" parent="."]
+wait_time = 0.18
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
+[connection signal="timeout" from="WalkTimer" to="." method="_on_walk_timer_timeout"]

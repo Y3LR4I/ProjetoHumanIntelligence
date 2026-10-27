@@ -8,13 +8,12 @@ func _physics_process(delta):
 func _on_area_entered(area):
 	if area.name == "LaserExit":
 		queue_free()
-	
-	if area.name == "Wrench":
+
+	if area.name == "Wrench" or area.name == "Parafuso":
 		area.queue_free()
 		queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "MaintenanceRobot":
-		var health_component = body.get_node("HealthComponent")
-		health_component.take_damage(0.5)
+	if body.name != "player" and body.has_node("HealthComponent"):
+		body.get_node("HealthComponent").take_laser_hit()
 		queue_free()

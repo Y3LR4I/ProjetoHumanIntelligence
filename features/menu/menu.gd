@@ -20,6 +20,7 @@ func _ready():
 	configurar_botao(credits_button, "CREDITOS", "CREDITOS")
 	configurar_botao(exit_button, "SAIR", "SAIR")
 
+	play_button.pressed.connect(_on_play_pressed)
 	score_button.pressed.connect(_on_score_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
 
@@ -63,6 +64,9 @@ func _animar_tamanho_fonte(botao: Button, de: int, para: int):
 		para,
 		0.15
 	)
+
+func _on_play_pressed():
+	get_tree().change_scene_to_file("res://features/game/game.tscn")
 
 func _on_score_pressed():
 	print("Score button pressed, going to scoreboard")

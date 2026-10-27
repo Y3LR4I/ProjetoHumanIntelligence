@@ -16,6 +16,6 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_body_entered(body: Node2D) -> void:	
 	if body.name == "player":
 		var health_component = body.get_node("HealthComponent")
-		health_component.take_damage(0.5)
+		health_component.take_damage(1.0)
 		
 		queue_free()

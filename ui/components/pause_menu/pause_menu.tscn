@@ -1,0 +1,87 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/components/pause_menu/pause_menu.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="2_font"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font = ExtResource("2_font")
+font_size = 70
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_normal_resume"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hover_resume"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_normal_restart"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hover_restart"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_normal_exit"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hover_exit"]
+
+[node name="PauseMenu" type="Control" unique_id=3301982771]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+script = ExtResource("1_script")
+
+[node name="DimBackground" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 280.0
+offset_right = 1280.0
+offset_bottom = 380.0
+text = "PAUSADO"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 390.0
+offset_right = 790.0
+offset_bottom = 450.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_normal_resume")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hover_resume")
+text = "CONTINUAR"
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 460.0
+offset_right = 790.0
+offset_bottom = 520.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_normal_restart")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hover_restart")
+text = "REINICIAR"
+alignment = 1
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 490.0
+offset_top = 530.0
+offset_right = 790.0
+offset_bottom = 590.0
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_normal_exit")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_hover_exit")
+text = "SAIR"
+alignment = 1
