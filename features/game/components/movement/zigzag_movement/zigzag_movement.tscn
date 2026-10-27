@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://features/game/components/movement/zigzag_movement/zigzag_movement.gd" id="1_script"]
+
+[node name="zigzag_movement" type="Node"]
+script = ExtResource("1_script")
