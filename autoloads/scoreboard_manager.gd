@@ -9,6 +9,7 @@ const SUPABASE_ANON_KEY: String = "sb_publishable_dX01f-iP3fn6G1O-Na_m6A_ThF5hkn
 
 func submit_score(player_name: String, score: int) -> void:
 	var http_request := HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	http_request.request_completed.connect(_on_submit_completed.bind(http_request))
 
@@ -30,6 +31,7 @@ func submit_score(player_name: String, score: int) -> void:
 
 func get_top_scores(limit: int = 10) -> void:
 	var http_request := HTTPRequest.new()
+	http_request.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(http_request)
 	http_request.request_completed.connect(_on_scores_completed.bind(http_request))
 

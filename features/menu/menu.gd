@@ -22,6 +22,7 @@ func _ready():
 
 	play_button.pressed.connect(_on_play_pressed)
 	score_button.pressed.connect(_on_score_pressed)
+	credits_button.pressed.connect(_on_credits_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
 
 
@@ -76,6 +77,9 @@ func _on_score_pressed():
 	else:
 		print("ERROR: Scene file not found!")
 		push_error("Scoreboard scene not found at res://features/scoreboard/scoreboard.tscn")
+
+func _on_credits_pressed():
+	get_tree().change_scene_to_file("res://features/credits/credits.tscn")
 
 func _on_exit_pressed():
 	get_tree().quit()
