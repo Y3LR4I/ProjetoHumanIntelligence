@@ -33,6 +33,11 @@ size = Vector2(643, 15)
 font = ExtResource("9_font")
 font_size = 32
 
+[sub_resource type="LabelSettings" id="LabelSettings_health"]
+font = ExtResource("9_font")
+font_size = 20
+font_color = Color(1, 1, 1, 0.75)
+
 [node name="Game" type="Node2D" unique_id=1937407610]
 script = ExtResource("1_tripy")
 
@@ -101,6 +106,57 @@ offset_right = 320.0
 offset_bottom = 60.0
 text = "PONTOS: 0"
 label_settings = SubResource("LabelSettings_score")
+
+[node name="HealthBar" type="Control" parent="UILayer"]
+offset_left = 960.0
+offset_top = 16.0
+offset_right = 1260.0
+offset_bottom = 60.0
+
+[node name="HealthLabel" type="Label" parent="UILayer/HealthBar"]
+offset_right = 150.0
+offset_bottom = 24.0
+text = "VIDA"
+label_settings = SubResource("LabelSettings_health")
+
+[node name="HealthValueLabel" type="Label" parent="UILayer/HealthBar"]
+offset_left = 150.0
+offset_right = 300.0
+offset_bottom = 24.0
+text = "7/7"
+label_settings = SubResource("LabelSettings_health")
+horizontal_alignment = 2
+
+[node name="HealthBarTrack" type="ColorRect" parent="UILayer/HealthBar"]
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 52.0
+color = Color(1, 1, 1, 0.12)
+
+[node name="HealthBarFill" type="ColorRect" parent="UILayer/HealthBar"]
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 52.0
+color = Color(0.3, 0.85, 0.45, 1)
+clip_contents = true
+
+[node name="HealthBarHighlight" type="ColorRect" parent="UILayer/HealthBar/HealthBarFill"]
+offset_right = 300.0
+offset_bottom = 6.0
+color = Color(1, 1, 1, 0.22)
+
+[node name="HealthBarGlow" type="ColorRect" parent="UILayer/HealthBar"]
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 52.0
+mouse_filter = 2
+color = Color(0.9, 0.2, 0.2, 0)
+
+[node name="HealthBarTicks" type="Control" parent="UILayer/HealthBar"]
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 52.0
+mouse_filter = 2
 
 [node name="PauseMenu" parent="UILayer" instance=ExtResource("6_pause_menu")]
 
