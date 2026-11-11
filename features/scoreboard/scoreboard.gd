@@ -14,7 +14,7 @@ const FADE_IN_DURATION = 1.5
 
 func _ready():
 	ScoreboardManager.scores_received.connect(_on_scores_received)
-	ScoreboardManager.get_top_scores(10)
+	ScoreboardManager.get_top_scores(5)
 	_animar_entrada()
 	configurar_botao(back_button, "VOLTAR", "VOLTAR")
 	back_button.pressed.connect(_on_back_pressed)
