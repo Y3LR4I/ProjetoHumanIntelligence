@@ -12,6 +12,7 @@ const CRITICAL_RATIO = 0.25
 @onready var health_bar_glow = $UILayer/HealthBar/HealthBarGlow
 @onready var health_bar_ticks = $UILayer/HealthBar/HealthBarTicks
 @onready var enemy_spawner = $EnemySpawner
+@onready var difficulty_manager = $DifficultyManager
 @onready var game_music = $GameMusic
 
 var _critical_tween: Tween
@@ -33,10 +34,15 @@ func _ready() -> void:
 	game_music.stream.loop = true
 	game_music.play()
 
+	difficulty_manager.dificuldade_alterada.connect(_on_dificuldade_alterada)
+	enemy_spawner.configurar_dificuldade(difficulty_manager.get_config())
 	enemy_spawner.start()
 
 func _on_score_changed(score: int) -> void:
 	score_label.text = "%d" % score
+
+func _on_dificuldade_alterada(_nivel: int, config: Dictionary) -> void:
+	enemy_spawner.configurar_dificuldade(config)
 
 func _on_health_changed(health: float) -> void:
 	_atualizar_barra_de_vida(health, true)

@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="9_font"]
 [ext_resource type="AudioStream" uid="uid://f6yi0jsoy7r7" path="res://assets/audio/som_ambiente-jogo.mp3" id="11_smqlc"]
 [ext_resource type="PackedScene" uid="uid://ddl0dfcu11tw" path="res://features/game/components/health_ui/battery.tscn" id="12_2nsow"]
+[ext_resource type="Script" uid="uid://crq0gkum27a20" path="res://features/game/components/difficulty/difficulty_manager.gd" id="13_difficulty"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ejch"]
 size = Vector2(313.5, 714.5)
@@ -47,6 +48,9 @@ script = ExtResource("1_tripy")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1772301149]
 position = Vector2(640, 360)
 texture = ExtResource("1_1j583")
+
+[node name="DifficultyManager" type="Node" parent="."]
+script = ExtResource("13_difficulty")
 
 [node name="player" parent="." unique_id=917865365 instance=ExtResource("1_v3hai")]
 position = Vector2(640, 680)

@@ -6,20 +6,31 @@ extends CharacterBody2D
 @export var walk_frames_stage2: Array[Texture2D]
 @export var walk_frames_stage3: Array[Texture2D]
 @export var spread_angles_degrees: Array[float] = [-25.0, 0.0, 25.0]
+@export var velocidade_base: float = 80.0
 
 @onready var sprite = $Sprite2D
 @onready var health_component = $HealthComponent
 @onready var shoot_timer = $ShootTimer
 @onready var walk_timer = $WalkTimer
+@onready var zigzag_movement = $zigzag_movement
 
 var _walk_sets: Array
 var _current_walk_frames: Array[Texture2D]
 var _walk_frame_index: int = 0
 
 func _ready():
+	add_to_group("inimigos")
 	_walk_sets = [walk_frames_stage0, walk_frames_stage1, walk_frames_stage2, walk_frames_stage3]
 	_set_walk_stage(0)
 	health_component.health_changed.connect(_on_health_changed)
+	_aplicar_velocidade()
+
+func configurar_dificuldade(velocidade: float) -> void:
+	velocidade_base = velocidade
+	_aplicar_velocidade()
+
+func _aplicar_velocidade() -> void:
+	zigzag_movement.vertical_speed = velocidade_base
 
 func atirar():
 	for angle_degrees in spread_angles_degrees:
