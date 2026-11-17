@@ -35,6 +35,8 @@ func _ready() -> void:
 	for membro in members.get_children():
 		membro.modulate.a = 0.0
 
+	InputDeviceManager.focus_when_gamepad(back_button)
+
 	await get_tree().create_timer(0.5).timeout
 
 	# 1. Digitação das mensagens
