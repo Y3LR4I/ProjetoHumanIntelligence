@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://features/game/components/loot/loot_dropper.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://features/game/entities/pickups/shield_pickup/shield_pickup.tscn" id="2_pickup"]
+
+[node name="LootDropper" type="Node"]
+script = ExtResource("1_script")
+pickup_scene = ExtResource("2_pickup")

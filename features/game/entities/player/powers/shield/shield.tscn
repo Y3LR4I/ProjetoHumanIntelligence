@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://features/game/entities/player/powers/shield/shield.gd" id="1_script"]
+[ext_resource type="AudioStream" path="res://assets/audio/escudo_ativar.wav" id="2_sfx_on"]
+[ext_resource type="AudioStream" path="res://assets/audio/escudo_bloqueio.wav" id="3_sfx_block"]
+[ext_resource type="AudioStream" path="res://assets/audio/escudo_fim.wav" id="4_sfx_off"]
+[ext_resource type="AudioStream" path="res://assets/audio/escudo_coletar.wav" id="5_sfx_charge"]
+
+[node name="Shield" type="Node2D"]
+z_index = 2
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ActivateSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_sfx_on")
+volume_db = -20.0
+
+[node name="BlockSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_sfx_block")
+volume_db = -20.0
+
+[node name="EndSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_sfx_off")
+volume_db = -21.0
+
+[node name="ChargeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_sfx_charge")
+volume_db = -22.0

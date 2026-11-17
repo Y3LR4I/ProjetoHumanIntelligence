@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://features/game/entities/enimies/drone/drone.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://features/game/entities/projectiles/missile/missile.tscn" id="2_missile"]
+[ext_resource type="Texture2D" uid="uid://bm2xe8v4xxkqb" path="res://assets/textures/drone1.svg" id="3_drone1"]
+[ext_resource type="Texture2D" uid="uid://cl4o03yj5kiqi" path="res://assets/textures/drone2.svg" id="4_drone2"]
+[ext_resource type="Texture2D" uid="uid://k73oefrej4iu" path="res://assets/textures/drone3.svg" id="5_drone3"]
+[ext_resource type="PackedScene" path="res://features/game/components/movement/hover_movement/hover_movement.tscn" id="6_hover"]
+[ext_resource type="PackedScene" uid="uid://bvbmnuda3eck0" path="res://features/game/components/health/health_component.tscn" id="7_health"]
+[ext_resource type="PackedScene" uid="uid://cpuewrkwlc3k1" path="res://features/game/components/boundary-damage/boundary_damage.tscn" id="8_boundary"]
+[ext_resource type="Script" uid="uid://cks2cxcvk1cgy" path="res://features/game/components/boundary-damage/boundary_damage.gd" id="9_boundary_script"]
+[ext_resource type="PackedScene" uid="uid://dsv8xdxidc680" path="res://features/game/components/score/score_component.tscn" id="10_score"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_drone"]
+size = Vector2(50, 38)
+
+[node name="Drone" type="CharacterBody2D"]
+script = ExtResource("1_script")
+missile_scene = ExtResource("2_missile")
+health_sprites = Array[Texture2D]([ExtResource("3_drone1"), ExtResource("4_drone2"), ExtResource("5_drone3")])
+health_sprite_scales = Array[float]([0.1, 0.1, 0.051])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_drone1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_drone")
+
+[node name="HoverMovement" parent="." instance=ExtResource("6_hover")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_health")]
+max_health = 3.0
+laser_damage = 0.5
+
+[node name="BoundaryDamage" parent="." instance=ExtResource("8_boundary")]
+script = ExtResource("9_boundary_script")
+damage = 1.5
+
+[node name="ScoreComponent" parent="." instance=ExtResource("10_score")]
+score = 250
+
+[node name="MissileSpawn" type="Marker2D" parent="."]
+position = Vector2(0, 22)
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.6
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

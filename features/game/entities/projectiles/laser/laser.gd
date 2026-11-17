@@ -9,7 +9,7 @@ func _on_area_entered(area):
 	if area.name == "LaserExit":
 		queue_free()
 
-	if area.name == "Wrench" or area.name == "Parafuso":
+	if area.name == "Wrench" or area.name == "Parafuso" or area.is_in_group("enemy_projectile"):
 		area.queue_free()
 		queue_free()
 
