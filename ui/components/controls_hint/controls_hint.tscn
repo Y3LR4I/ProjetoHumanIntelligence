@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://ui/components/controls_hint/controls_hint.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="2_font"]
+[ext_resource type="Script" path="res://ui/components/controls_hint/analog_stick_icon.gd" id="3_analog_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 32.0
@@ -52,7 +53,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 script = ExtResource("1_script")
 
-[node name="Content" type="HBoxContainer" parent="."]
+[node name="Content" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -62,33 +63,42 @@ grow_vertical = 2
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="LeftKey" type="PanelContainer" parent="Content"]
+[node name="KeyboardRow" type="HBoxContainer" parent="Content"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="LeftKey" type="PanelContainer" parent="Content/KeyboardRow"]
 custom_minimum_size = Vector2(48, 34)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_key")
 
-[node name="Label" type="Label" parent="Content/LeftKey"]
+[node name="Label" type="Label" parent="Content/KeyboardRow/LeftKey"]
 layout_mode = 2
-text = "←"
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "A"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 26
 
-[node name="RightKey" type="PanelContainer" parent="Content"]
+[node name="RightKey" type="PanelContainer" parent="Content/KeyboardRow"]
 custom_minimum_size = Vector2(48, 34)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_key")
 
-[node name="Label" type="Label" parent="Content/RightKey"]
+[node name="Label" type="Label" parent="Content/KeyboardRow/RightKey"]
 layout_mode = 2
-text = "→"
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "D"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 26
 
-[node name="MoveLabel" type="Label" parent="Content"]
+[node name="MoveLabel" type="Label" parent="Content/KeyboardRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.95)
 theme_override_fonts/font = ExtResource("2_font")
@@ -96,17 +106,17 @@ theme_override_font_sizes/font_size = 26
 text = "MOVER"
 vertical_alignment = 1
 
-[node name="Separator" type="Control" parent="Content"]
+[node name="Separator" type="Control" parent="Content/KeyboardRow"]
 custom_minimum_size = Vector2(18, 0)
 layout_mode = 2
 
-[node name="ShootKey" type="PanelContainer" parent="Content"]
+[node name="ShootKey" type="PanelContainer" parent="Content/KeyboardRow"]
 custom_minimum_size = Vector2(48, 34)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_key")
 
-[node name="Label" type="Label" parent="Content/ShootKey"]
+[node name="Label" type="Label" parent="Content/KeyboardRow/ShootKey"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.95)
 theme_override_fonts/font = ExtResource("2_font")
@@ -115,7 +125,46 @@ text = "H"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ShootLabel" type="Label" parent="Content"]
+[node name="ShootLabel" type="Label" parent="Content/KeyboardRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "ATIRAR"
+vertical_alignment = 1
+
+[node name="GamepadRow" type="HBoxContainer" parent="Content"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="AnalogStick" type="Control" parent="Content/GamepadRow"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("3_analog_icon")
+
+[node name="MoveLabel" type="Label" parent="Content/GamepadRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 26
+text = "MOVER"
+vertical_alignment = 1
+
+[node name="Separator" type="Control" parent="Content/GamepadRow"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+
+[node name="ShootGlyph" type="TextureRect" parent="Content/GamepadRow"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ShootLabel" type="Label" parent="Content/GamepadRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.95)
 theme_override_fonts/font = ExtResource("2_font")
