@@ -29,8 +29,6 @@ func _ready():
 	exit_button.pressed.connect(_on_exit_pressed)
 	menu_music.stream.loop = true
 	menu_music.play()
-	
-	credits_button.pressed.connect(_on_credits_pressed)
 	glitch_overlay.visible = false
 
 
@@ -87,9 +85,6 @@ func _on_score_pressed():
 	else:
 		print("ERROR: Scene file not found!")
 		push_error("Scoreboard scene not found at res://features/scoreboard/scoreboard.tscn")
-
-func _on_credits_pressed():
-	get_tree().change_scene_to_file("res://features/credits/credits.tscn")
 
 func _on_exit_pressed():
 	get_tree().quit()
