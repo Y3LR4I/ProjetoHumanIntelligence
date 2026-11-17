@@ -131,5 +131,5 @@ layout_mode = 0
 offset_right = 1293.0
 offset_bottom = 734.0
 mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
-[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]

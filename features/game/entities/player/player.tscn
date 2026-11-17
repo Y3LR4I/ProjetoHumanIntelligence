@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://c8tfhfxqwi0w" path="res://features/game/components/movement/horizontal_movement/horizontal_movement.tscn" id="2_usipw"]
 [ext_resource type="PackedScene" uid="uid://bvbmnuda3eck0" path="res://features/game/components/health/health_component.tscn" id="4_psakv"]
 [ext_resource type="AudioStream" uid="uid://cjusjrpic4m5q" path="res://assets/audio/laser.wav" id="5_8pqjw"]
+[ext_resource type="PackedScene" path="res://features/game/entities/player/powers/laser_cannon/laser_cannon.tscn" id="6_laser_cannon"]
+[ext_resource type="PackedScene" path="res://features/game/entities/player/powers/shield/shield.tscn" id="7_shield"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emv1h"]
 size = Vector2(60, 51)
@@ -31,3 +33,10 @@ max_health = 7.0
 [node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=610021260]
 stream = ExtResource("5_8pqjw")
 volume_db = -20.0
+
+[node name="LaserCannon" parent="." instance=ExtResource("6_laser_cannon")]
+position = Vector2(-35, -15)
+
+[node name="Shield" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_shield")]
+position = Vector2(2, 6)
+health_component = NodePath("../HealthComponent")

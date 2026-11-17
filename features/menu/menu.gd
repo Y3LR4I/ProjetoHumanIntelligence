@@ -3,6 +3,7 @@ extends Control
 const FONT_SIZE_NORMAL = 50
 const FONT_SIZE_HOVER = 55
 const FADE_IN_DURATION = 2.5
+const CREDITS_FADE_DURATION = 0.4
 
 @onready var background = $Background
 @onready var game_title = $GameTitle
@@ -22,6 +23,7 @@ func _ready():
 	configurar_botao(score_button, "PLACAR", "PLACAR")
 	configurar_botao(credits_button, "CREDITOS", "CREDITOS")
 	configurar_botao(exit_button, "SAIR", "SAIR")
+	InputDeviceManager.focus_when_gamepad(play_button)
 
 	play_button.pressed.connect(_on_play_pressed)
 	score_button.pressed.connect(_on_score_pressed)
@@ -50,6 +52,9 @@ func configurar_botao(botao: Button, texto_normal: String, texto_hover: String):
 
 	botao.mouse_entered.connect(_mouse_entrou.bind(botao, texto_hover))
 	botao.mouse_exited.connect(_mouse_saiu.bind(botao, texto_normal))
+	# Controle: o botão selecionado pelo D-pad ganha o mesmo destaque do hover.
+	botao.focus_entered.connect(_mouse_entrou.bind(botao, texto_hover))
+	botao.focus_exited.connect(_mouse_saiu.bind(botao, texto_normal))
 
 
 func _mouse_entrou(botao: Button, texto: String):
@@ -94,22 +99,12 @@ func _on_credits_pressed():
 	glitch_overlay.visible = true
 	glitch_overlay.modulate.a = 0.0
 
+	# Fade suave pro preto (a tela de créditos faz o fade-in a partir do preto),
+	# junto com a música do menu sumindo.
 	var tween = create_tween()
-
-	# Primeiro flash
-	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.05)
-	tween.tween_interval(0.04)
-
-	# Interrupção
-	tween.tween_property(glitch_overlay, "modulate:a", 0.0, 0.04)
-	tween.tween_interval(0.06)
-
-	# Segundo flash
-	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.03)
-	tween.tween_interval(0.08)
-
-	# Tela preta
-	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.1)
+	tween.set_parallel(true)
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, CREDITS_FADE_DURATION) 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(menu_music, "volume_db", -40.0, CREDITS_FADE_DURATION)
 
 	await tween.finished
 

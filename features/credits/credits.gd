@@ -25,6 +25,7 @@ func _ready():
 	_animar_entrada()
 	configurar_botao(back_button, "VOLTAR", "VOLTAR")
 	back_button.pressed.connect(_on_back_pressed)
+	InputDeviceManager.focus_when_gamepad(back_button)
 
 
 func _popular_creditos(entries: Array):
@@ -85,6 +86,9 @@ func configurar_botao(botao: Button, texto_normal: String, texto_hover: String):
 
 	botao.mouse_entered.connect(_mouse_entrou.bind(botao, texto_hover))
 	botao.mouse_exited.connect(_mouse_saiu.bind(botao, texto_normal))
+	# Controle: o botão selecionado pelo D-pad ganha o mesmo destaque do hover.
+	botao.focus_entered.connect(_mouse_entrou.bind(botao, texto_hover))
+	botao.focus_exited.connect(_mouse_saiu.bind(botao, texto_normal))
 
 
 func _mouse_entrou(botao: Button, texto: String):

@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://features/game/entities/player/powers/laser_cannon/laser_cannon.gd" id="1_script"]
+[ext_resource type="AudioStream" path="res://assets/audio/canhao_laser_inicio.wav" id="2_sfx_start"]
+[ext_resource type="AudioStream" path="res://assets/audio/canhao_laser_loop.wav" id="3_sfx_loop"]
+[ext_resource type="AudioStream" path="res://assets/audio/canhao_laser_fim.wav" id="4_sfx_end"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_beam"]
+size = Vector2(34, 700)
+
+[node name="LaserCannon" type="Node2D"]
+z_index = 1
+script = ExtResource("1_script")
+
+[node name="BeamArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BeamArea"]
+position = Vector2(0, -350)
+shape = SubResource("RectangleShape2D_beam")
+
+[node name="GlowLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, -700)
+width = 40.0
+default_color = Color(0.3, 0.85, 1, 0.55)
+begin_cap_mode = 2
+
+[node name="CoreLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, -700)
+width = 10.0
+default_color = Color(0.85, 1, 1, 1)
+begin_cap_mode = 2
+
+[node name="Muzzle" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+
+[node name="StartSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_sfx_start")
+volume_db = -20.0
+
+[node name="LoopSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_sfx_loop")
+volume_db = -26.0
+
+[node name="EndSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_sfx_end")
+volume_db = -26.0

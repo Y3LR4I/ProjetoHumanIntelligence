@@ -1,5 +1,7 @@
 extends Node
 
+signal enemy_spawned(enemy: Node)
+
 @export var enemy_scenes: Array[PackedScene]
 @export var spawn_x_min: float = 220.0
 @export var spawn_x_max: float = 1060.0
@@ -48,6 +50,7 @@ func _spawn_enemy() -> void:
 	var enemy = scene.instantiate()
 	enemy.position = Vector2(randf_range(spawn_x_min, spawn_x_max), spawn_y)
 	get_tree().current_scene.add_child(enemy)
+	enemy_spawned.emit(enemy)
 
 	if enemy.has_method("configurar_dificuldade"):
 		enemy.configurar_dificuldade(_config.get("velocidade", 80.0))

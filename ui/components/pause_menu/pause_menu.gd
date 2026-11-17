@@ -21,6 +21,7 @@ func _ready():
 	resume_button.pressed.connect(_on_resume_pressed)
 	restart_button.pressed.connect(func(): restart_requested.emit())
 	exit_button.pressed.connect(func(): exit_requested.emit())
+	InputDeviceManager.focus_when_gamepad(resume_button)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -31,6 +32,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _toggle_pause() -> void:
 	get_tree().paused = not get_tree().paused
 	visible = get_tree().paused
+	if visible and InputDeviceManager.using_gamepad:
+		resume_button.grab_focus()
 
 
 func _on_resume_pressed() -> void:
@@ -49,6 +52,9 @@ func configurar_botao(botao: Button, texto_normal: String, texto_hover: String):
 
 	botao.mouse_entered.connect(_mouse_entrou.bind(botao, texto_hover))
 	botao.mouse_exited.connect(_mouse_saiu.bind(botao, texto_normal))
+	# Controle: o botão selecionado pelo D-pad ganha o mesmo destaque do hover.
+	botao.focus_entered.connect(_mouse_entrou.bind(botao, texto_hover))
+	botao.focus_exited.connect(_mouse_saiu.bind(botao, texto_normal))
 
 
 func _mouse_entrou(botao: Button, texto: String):
