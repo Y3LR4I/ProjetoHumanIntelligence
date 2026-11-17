@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" path="res://assets/textures/icon_canhao_laser.svg" id="16_icon_canhao"]
 [ext_resource type="Texture2D" path="res://assets/textures/icon_escudo.svg" id="17_icon_escudo"]
 [ext_resource type="PackedScene" path="res://features/game/components/loot/loot_dropper.tscn" id="18_loot"]
+[ext_resource type="PackedScene" path="res://ui/components/controls_hint/controls_hint.tscn" id="19_controls_hint"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ejch"]
 size = Vector2(313.5, 714.5)
@@ -121,6 +122,7 @@ label_settings = SubResource("LabelSettings_score")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ControlsHint" parent="UILayer" instance=ExtResource("19_controls_hint")]
 [node name="PauseMenu" parent="UILayer" instance=ExtResource("6_pause_menu")]
 
 [node name="NameEntry" parent="UILayer" unique_id=2122670785 instance=ExtResource("7_name_entry")]
