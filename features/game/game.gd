@@ -5,6 +5,7 @@ extends Node2D
 @onready var name_entry = $UILayer/NameEntry
 @onready var score_label = $UILayer/ScoreLabel
 @onready var enemy_spawner = $EnemySpawner
+@onready var game_music = $GameMusic
 
 func _ready() -> void:
 	pause_menu.restart_requested.connect(_on_restart_requested)
@@ -16,11 +17,14 @@ func _ready() -> void:
 	ScoreManager.resetar_score()
 	ScoreManager.score_changed.connect(_on_score_changed)
 	_on_score_changed(ScoreManager.score)
+	
+	game_music.stream.loop = true
+	game_music.play()
 
 	enemy_spawner.start()
 
 func _on_score_changed(score: int) -> void:
-	score_label.text = "PONTOS: %d" % score
+	score_label.text = "%d" % score
 
 func _on_player_died() -> void:
 	enemy_spawner.stop()

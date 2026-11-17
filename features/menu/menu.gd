@@ -10,6 +10,9 @@ const FADE_IN_DURATION = 2.5
 @onready var score_button = $ScoreButton
 @onready var credits_button = $CreditsButton
 @onready var exit_button = $ExitButton
+@onready var menu_music = $MenuMusic
+@onready var hover_sound = $HoverSound
+@onready var glitch_overlay = $GlitchOverlay
 
 
 func _ready():
@@ -23,6 +26,11 @@ func _ready():
 	play_button.pressed.connect(_on_play_pressed)
 	score_button.pressed.connect(_on_score_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
+	menu_music.stream.loop = true
+	menu_music.play()
+	
+	credits_button.pressed.connect(_on_credits_pressed)
+	glitch_overlay.visible = false
 
 
 func _animar_entrada():
@@ -48,6 +56,7 @@ func configurar_botao(botao: Button, texto_normal: String, texto_hover: String):
 func _mouse_entrou(botao: Button, texto: String):
 	botao.text = texto
 	_animar_tamanho_fonte(botao, FONT_SIZE_NORMAL, FONT_SIZE_HOVER)
+	hover_sound.play()
 
 
 func _mouse_saiu(botao: Button, texto: String):
@@ -66,6 +75,7 @@ func _animar_tamanho_fonte(botao: Button, de: int, para: int):
 	)
 
 func _on_play_pressed():
+	menu_music.stop()
 	get_tree().change_scene_to_file("res://features/game/game.tscn")
 
 func _on_score_pressed():
@@ -79,3 +89,30 @@ func _on_score_pressed():
 
 func _on_exit_pressed():
 	get_tree().quit()
+	
+func _on_credits_pressed():
+	credits_button.disabled = true
+	glitch_overlay.visible = true
+	glitch_overlay.modulate.a = 0.0
+
+	var tween = create_tween()
+
+	# Primeiro flash
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.05)
+	tween.tween_interval(0.04)
+
+	# Interrupção
+	tween.tween_property(glitch_overlay, "modulate:a", 0.0, 0.04)
+	tween.tween_interval(0.06)
+
+	# Segundo flash
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.03)
+	tween.tween_interval(0.08)
+
+	# Tela preta
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.1)
+
+	await tween.finished
+
+	menu_music.stop()
+	get_tree().change_scene_to_file("res://features/credits/credits.tscn")

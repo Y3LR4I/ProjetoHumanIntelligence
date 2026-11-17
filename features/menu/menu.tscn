@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://hjsxvicrifpc"]
 
 [ext_resource type="Script" uid="uid://bm3gwkljtwyxl" path="res://features/menu/menu.gd" id="1_vjb58"]
-[ext_resource type="Texture2D" uid="uid://dhdapg02v4dts" path="res://assets/fundo-fabrica-menu.svg" id="1_yqeox"]
-[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
+[ext_resource type="Texture2D" uid="uid://dhdapg02v4dts" path="res://assets/textures/fundo-fabrica-menu.svg" id="1_yqeox"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
+[ext_resource type="AudioStream" uid="uid://c51v6eu5lhsem" path="res://assets/audio/som_menu.mp3" id="4_4tupy"]
+[ext_resource type="AudioStream" uid="uid://cxbo8i2dc33kn" path="res://assets/audio/som_plup_hover_menu.mp3" id="5_5h3sk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0ejch"]
 font = ExtResource("3_con2f")
@@ -115,3 +117,19 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_ce0il")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mhnvy")
 text = "SAIR"
 alignment = 0
+
+[node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1601934251]
+stream = ExtResource("4_4tupy")
+volume_db = -15.0
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=280810635]
+stream = ExtResource("5_5h3sk")
+volume_db = -15.0
+
+[node name="GlitchOverlay" type="ColorRect" parent="." unique_id=1227618025]
+layout_mode = 0
+offset_right = 1293.0
+offset_bottom = 734.0
+mouse_filter = 2
+
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]

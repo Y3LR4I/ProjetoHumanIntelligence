@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://dmf7j3js10ftn"]
+
+[ext_resource type="Script" uid="uid://i4otufaqi5mj" path="res://features/credits/credits.gd" id="1_odkmk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1pq0j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmidc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_77t7a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jjol"]
+
+[node name="Credits" type="Control" unique_id=886418731]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 724.0
+script = ExtResource("1_odkmk")
+
+[node name="Background" type="ColorRect" parent="." unique_id=179834367]
+layout_mode = 0
+offset_right = 1277.0
+offset_bottom = 721.0
+color = Color(0.019607844, 0.03137255, 0.019607844, 1)
+
+[node name="CreditsContent" type="VBoxContainer" parent="." unique_id=76536291]
+layout_mode = 0
+offset_left = 4.0
+offset_right = 1267.0
+offset_bottom = 713.0
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Title" type="Label" parent="CreditsContent" unique_id=303726018]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 50
+text = "CRÉDITOS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TerminalText" type="Label" parent="CreditsContent" unique_id=519099527]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+
+[node name="GameTitle" type="Label" parent="CreditsContent" unique_id=1449609393]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 32
+text = "— HUMAN INTELLIGENCE —"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Members" type="VBoxContainer" parent="CreditsContent" unique_id=947390052]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Member1" type="VBoxContainer" parent="CreditsContent/Members" unique_id=42189685]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="CreditsContent/Members/Member1" unique_id=1373830975]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 24
+text = "DHENZEL RIBEIRO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Role" type="Label" parent="CreditsContent/Members/Member1" unique_id=623974938]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 14
+text = "GAME DESIGN / PROGRAMAÇÃO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Member2" type="VBoxContainer" parent="CreditsContent/Members" unique_id=1334059892]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="CreditsContent/Members/Member2" unique_id=1017917660]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 24
+text = "IARLEY ALVES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Role" type="Label" parent="CreditsContent/Members/Member2" unique_id=1293481193]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 14
+text = "GAME DESIGN / GAME WRITTER / AUDIO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Member3" type="VBoxContainer" parent="CreditsContent/Members" unique_id=888319537]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="CreditsContent/Members/Member3" unique_id=1988447421]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 24
+text = "JOÃO VICTOR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Role" type="Label" parent="CreditsContent/Members/Member3" unique_id=590490730]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 14
+text = "GAME DEV / PROGRAMAÇÃO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Footer" type="Label" parent="CreditsContent" unique_id=960607165]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 14
+text = "END OF TRANSMISSION_"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=770155187]
+layout_mode = 0
+offset_right = 1252.0
+offset_bottom = 110.0
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1pq0j")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_gmidc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_77t7a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4jjol")
+text = "[ X ]"
+alignment = 2
+icon_alignment = 2
+vertical_icon_alignment = 0
+
+[node name="GlitchOverlay" type="ColorRect" parent="." unique_id=486413656]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 727.0
+mouse_filter = 2
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

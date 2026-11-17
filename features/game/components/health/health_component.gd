@@ -13,6 +13,11 @@ func _ready():
 
 func take_damage(amount: float):
 	health -= amount
+
+	if get_parent().name == "player":
+		print("Dano recebido: ", amount)
+		print("Vida do Player: ", health, "/", max_health)
+
 	health_changed.emit(health)
 
 	if health <= 0:
