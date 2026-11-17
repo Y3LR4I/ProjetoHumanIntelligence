@@ -35,6 +35,7 @@ speed = 80.0
 
 [node name="BoundaryDamage" parent="." unique_id=1949294605 instance=ExtResource("9_16tq6")]
 script = ExtResource("10_afgtb")
+damage = 0.5
 
 [node name="ScoreComponent" parent="." unique_id=902718286 instance=ExtResource("11_25nbm")]
 

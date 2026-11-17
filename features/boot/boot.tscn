@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://p8xdeqwo3od"]
 
 [ext_resource type="Script" uid="uid://crlvaby6yrpj2" path="res://features/boot/boot.gd" id="1_pk062"]
-[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="2_gafq3"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="2_gafq3"]
+[ext_resource type="AudioStream" uid="uid://crnbbtwoayrj3" path="res://assets/audio/som_digitando.mp3" id="3_biohl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0ejch"]
 font = ExtResource("2_gafq3")
@@ -50,6 +51,9 @@ vertical_alignment = 1
 
 [node name="TransitionTimer" type="Timer" parent="." unique_id=2037501970]
 wait_time = 3.0
+
+[node name="TypingSound" type="AudioStreamPlayer" parent="." unique_id=1194706028]
+stream = ExtResource("3_biohl")
 
 [connection signal="timeout" from="TypeTimer" to="." method="_on_type_timer_timeout"]
 [connection signal="timeout" from="CursorTimer" to="." method="_on_cursor_timer_timeout"]

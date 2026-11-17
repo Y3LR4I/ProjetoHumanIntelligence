@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ddl0dfcu11tw"]
+
+[ext_resource type="Script" uid="uid://7oh7vptj31w3" path="res://features/game/components/health_ui/battery.gd" id="1_ktwys"]
+[ext_resource type="Texture2D" uid="uid://feobo3qns5nl" path="res://assets/textures/barraAzul3.svg" id="2_qw5xf"]
+[ext_resource type="Texture2D" uid="uid://coudn5yj3nlcc" path="res://assets/textures/nucleoAzul.svg" id="2_x53sd"]
+[ext_resource type="Texture2D" uid="uid://i480hklsehdh" path="res://assets/textures/newScore.svg" id="4_7mipb"]
+[ext_resource type="Texture2D" uid="uid://bv1xc142c5dlh" path="res://assets/textures/cinza.svg" id="4_qw5xf"]
+
+[node name="Battery" type="Control" unique_id=2093717640]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 266.0
+offset_bottom = 110.0
+script = ExtResource("1_ktwys")
+bar_texture = ExtResource("2_qw5xf")
+
+[node name="BatteryCore" type="TextureRect" parent="." unique_id=943782057]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -10.0
+offset_right = 313.0
+offset_bottom = 106.0
+texture = ExtResource("2_x53sd")
+expand_mode = 1
+
+[node name="BatteryFrame2" type="TextureRect" parent="." unique_id=56587494]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -19.0
+offset_right = 276.0
+offset_bottom = 145.0
+texture = ExtResource("4_qw5xf")
+expand_mode = 1
+
+[node name="Bars" type="HBoxContainer" parent="." unique_id=1850294558]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 9.0
+offset_right = 245.0
+offset_bottom = 108.0
+theme_override_constants/separation = 1
+
+[node name="BatteryFrame" type="TextureRect" parent="." unique_id=1568017061]
+layout_mode = 0
+offset_left = -9.0
+offset_top = -19.0
+offset_right = 276.0
+offset_bottom = 145.0
+texture = ExtResource("4_7mipb")
+expand_mode = 1

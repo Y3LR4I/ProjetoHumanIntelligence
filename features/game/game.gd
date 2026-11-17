@@ -12,6 +12,7 @@ const CRITICAL_RATIO = 0.25
 @onready var health_bar_glow = $UILayer/HealthBar/HealthBarGlow
 @onready var health_bar_ticks = $UILayer/HealthBar/HealthBarTicks
 @onready var enemy_spawner = $EnemySpawner
+@onready var game_music = $GameMusic
 
 var _critical_tween: Tween
 
@@ -28,11 +29,14 @@ func _ready() -> void:
 	ScoreManager.resetar_score()
 	ScoreManager.score_changed.connect(_on_score_changed)
 	_on_score_changed(ScoreManager.score)
+	
+	game_music.stream.loop = true
+	game_music.play()
 
 	enemy_spawner.start()
 
 func _on_score_changed(score: int) -> void:
-	score_label.text = "PONTOS: %d" % score
+	score_label.text = "%d" % score
 
 func _on_health_changed(health: float) -> void:
 	_atualizar_barra_de_vida(health, true)

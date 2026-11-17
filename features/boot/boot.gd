@@ -2,13 +2,18 @@ extends Control
 
 @onready var title = $Title
 @onready var cursor = $Cursor
+@onready var typing_sound = get_node_or_null("TypingSound")
 
 var texto = "Human Intelligence"
 var indice = 0
 
 func _ready():
+	print("Cena atual: ", get_tree().current_scene.scene_file_path)
+	print("Filhos do Opening: ", get_children())
+
 	title.text = ""
 	cursor.visible = false
+	typing_sound.play()
 	$TypeTimer.start()
 
 func _on_type_timer_timeout() -> void:
@@ -17,6 +22,7 @@ func _on_type_timer_timeout() -> void:
 		title.text = texto.substr(0, indice)
 	else:
 		$TypeTimer.stop()
+		typing_sound.stop()
 		$CursorTimer.start()
 		cursor.visible = true
 		$TransitionTimer.start()

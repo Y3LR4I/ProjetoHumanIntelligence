@@ -1,14 +1,13 @@
 extends CharacterBody2D
 
-
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 @export var laser_scene: PackedScene
-
 @onready var laser_spawn = $LaserSpawn
-
 @onready var health_component = $HealthComponent
+@onready var shoot_sound = $ShootSound
+@onready var battery = get_tree().current_scene.get_node("HUD/Battery")
 
 func _ready():
 	health_component.health_changed.connect(_on_health_changed)
@@ -29,8 +28,8 @@ func _physics_process(_delta: float) -> void:
 func atirar():
 	var laser = laser_scene.instantiate()
 	laser.global_position = laser_spawn.global_position
-	
 	get_tree().current_scene.add_child(laser)
+	shoot_sound.play()
 	
 func _on_health_changed(health: float) -> void:
-	print("Vida do Player: ", health)
+	battery.update_health(health)
