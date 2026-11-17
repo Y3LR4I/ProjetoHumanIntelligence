@@ -3,7 +3,6 @@ extends Control
 const FONT_SIZE_NORMAL = 50
 const FONT_SIZE_HOVER = 55
 const FADE_IN_DURATION = 2.5
-const CREDITS_FADE_DURATION = 0.4
 
 @onready var background = $Background
 @onready var game_title = $GameTitle
@@ -99,12 +98,22 @@ func _on_credits_pressed():
 	glitch_overlay.visible = true
 	glitch_overlay.modulate.a = 0.0
 
-	# Fade suave pro preto (a tela de créditos faz o fade-in a partir do preto),
-	# junto com a música do menu sumindo.
 	var tween = create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(glitch_overlay, "modulate:a", 1.0, CREDITS_FADE_DURATION) 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tween.tween_property(menu_music, "volume_db", -40.0, CREDITS_FADE_DURATION)
+
+	# Primeiro flash
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.05)
+	tween.tween_interval(0.04)
+
+	# Interrupção
+	tween.tween_property(glitch_overlay, "modulate:a", 0.0, 0.04)
+	tween.tween_interval(0.06)
+
+	# Segundo flash
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.03)
+	tween.tween_interval(0.08)
+
+	# Tela preta
+	tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.1)
 
 	await tween.finished
 
