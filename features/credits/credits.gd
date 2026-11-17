@@ -1,116 +1,115 @@
 extends Control
 
-const FONT_SIZE_NORMAL = 50
-const FONT_SIZE_HOVER = 55
-const FADE_IN_DURATION = 1.5
+@onready var glitch_overlay = $GlitchOverlay
+@onready var credits_content = $CreditsContent
+@onready var title = $CreditsContent/Title
+@onready var terminal_text = $CreditsContent/TerminalText
+@onready var members = $CreditsContent/Members
+@onready var footer = $CreditsContent/Footer
+@onready var back_button = $BackButton
+@onready var game_title = $CreditsContent/GameTitle
 
-const CREDITS_DATA: Array[Dictionary] = [
-	{"name": "Dhenzel Lima", "role": "Desenvolvedor, Infraestrutura"},
-	{"name": "Iarley Alves", "role": "Desenvolvedor, Designer UI/UX"},
-	{"name": "João Victor", "role": "Desenvolvedor, Infraestrutura"},
+var glitch_tween: Tween
+
+
+const TERMINAL_LINES = [
+	"> ACCESSING PERSONNEL DATABASE...",
+	"> VERIFYING IDENTITIES...",
+	"> ACCESS GRANTED.",
+	"> LOADING CREDITS..."
 ]
 
-@onready var credits_container = $CreditsScroll/CreditsContainer
-@onready var credits_scroll = $CreditsScroll
-@onready var back_button = $BackButton
-@onready var title = $Title
-@onready var subtitle = $Subtitle
-@onready var background = $Background
-@onready var fade_overlay = $FadeOverlay
-@onready var empty_label = $EmptyLabel
+func _ready() -> void:
+	glitch_overlay.visible = false
 
+	# Visíveis desde o início
+	title.modulate.a = 1.0
+	back_button.modulate.a = 1.0
 
-func _ready():
-	_popular_creditos(CREDITS_DATA)
-	_animar_entrada()
-	configurar_botao(back_button, "VOLTAR", "VOLTAR")
-	back_button.pressed.connect(_on_back_pressed)
-	InputDeviceManager.focus_when_gamepad(back_button)
+	# Elementos que aparecem depois
+	terminal_text.modulate.a = 1.0
+	game_title.modulate.a = 0.0
+	members.modulate.a = 1.0
+	footer.modulate.a = 0.0
 
+	for membro in members.get_children():
+		membro.modulate.a = 0.0
 
-func _popular_creditos(entries: Array):
-	for i in range(credits_container.get_child_count()):
-		credits_container.get_child(i).queue_free()
+	await get_tree().create_timer(0.5).timeout
 
-	if entries.is_empty():
-		empty_label.visible = true
-		credits_scroll.visible = false
-		return
+	# 1. Digitação das mensagens
+	await digitar_terminal()
 
-	empty_label.visible = false
-	credits_scroll.visible = true
+	# 2. Aparece o nome do jogo
+	await aparecer_elemento(game_title)
 
-	for entry in entries:
-		var role: String = entry.get("role", "")
-		var name: String = entry.get("name", "")
-		credits_container.add_child(_criar_entrada_credito(name, role))
+	# 3. Aparecem os integrantes
+	for membro in members.get_children():
+		await aparecer_elemento(membro)
 
+	# 4. Aparece o rodapé
+	await aparecer_elemento(footer)
+	
+func aparecer_elemento(elemento: CanvasItem) -> void:
+	var tween = create_tween()
+	tween.tween_property(elemento, "modulate:a", 1.0, 0.6)
+	await tween.finished
 
-func _criar_entrada_credito(name: String, role: String) -> VBoxContainer:
-	var container = VBoxContainer.new()
-	container.add_theme_constant_override("separation", 4)
-	container.custom_minimum_size = Vector2(0, 70)
+	await get_tree().create_timer(0.3).timeout
 
-	var name_label = Label.new()
-	name_label.text = name
-	name_label.add_theme_font_size_override("font_size", 40)
-	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	name_label.add_theme_color_override("font_color", Color.WHITE)
-	container.add_child(name_label)
+func iniciar_glitch() -> void:
+	glitch_overlay.visible = true
+	glitch_overlay.modulate.a = 0.0
 
-	var role_label = Label.new()
-	role_label.text = role
-	role_label.add_theme_font_size_override("font_size", 22)
-	role_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	role_label.add_theme_color_override("font_color", Color(1, 1, 1, 0.6))
-	container.add_child(role_label)
+	glitch_tween = create_tween()
 
-	return container
+	# Primeiro flash
+	glitch_tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.05)
+	glitch_tween.tween_interval(0.04)
 
+	# Apaga rapidamente
+	glitch_tween.tween_property(glitch_overlay, "modulate:a", 0.0, 0.04)
+	glitch_tween.tween_interval(0.06)
 
-func _animar_entrada():
-	var elementos = [background, fade_overlay, title, subtitle, credits_scroll, back_button, empty_label]
+	# Segundo flash
+	glitch_tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.03)
+	glitch_tween.tween_interval(0.08)
+
+	# Tela preta
+	glitch_tween.tween_property(glitch_overlay, "modulate:a", 1.0, 0.1)
+
+func _on_back_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://features/menu/menu.tscn")
+	
+
+func digitar_terminal():
+	terminal_text.text = ""
+
+	for linha in TERMINAL_LINES:
+		for caractere in linha:
+			terminal_text.text += caractere
+			await get_tree().create_timer(0.035).timeout
+
+		terminal_text.text += "\n"
+		await get_tree().create_timer(0.5).timeout
+
+func animar_entrada():
+	var elementos = [
+		title,
+		terminal_text,
+		members.get_node("Member1"),
+		members.get_node("Member2"),
+		members.get_node("Member3"),
+		footer
+	]
 
 	for elemento in elementos:
 		elemento.modulate.a = 0.0
 
-	var tween = create_tween()
-	tween.set_parallel(true)
+	await get_tree().create_timer(0.3).timeout
 
 	for elemento in elementos:
-		tween.tween_property(elemento, "modulate:a", 1.0, FADE_IN_DURATION)
-
-
-func configurar_botao(botao: Button, texto_normal: String, texto_hover: String):
-	botao.text = texto_normal
-
-	botao.mouse_entered.connect(_mouse_entrou.bind(botao, texto_hover))
-	botao.mouse_exited.connect(_mouse_saiu.bind(botao, texto_normal))
-	# Controle: o botão selecionado pelo D-pad ganha o mesmo destaque do hover.
-	botao.focus_entered.connect(_mouse_entrou.bind(botao, texto_hover))
-	botao.focus_exited.connect(_mouse_saiu.bind(botao, texto_normal))
-
-
-func _mouse_entrou(botao: Button, texto: String):
-	botao.text = texto
-	_animar_tamanho_fonte(botao, FONT_SIZE_NORMAL, FONT_SIZE_HOVER)
-
-
-func _mouse_saiu(botao: Button, texto: String):
-	botao.text = texto
-	_animar_tamanho_fonte(botao, FONT_SIZE_HOVER, FONT_SIZE_NORMAL)
-
-
-func _animar_tamanho_fonte(botao: Button, de: int, para: int):
-	var tween = create_tween()
-	tween.tween_method(
-		func(tamanho):
-			botao.add_theme_font_size_override("font_size", tamanho),
-		de,
-		para,
-		0.15
-	)
-
-
-func _on_back_pressed():
-	get_tree().change_scene_to_file("res://features/menu/menu.tscn")
+		var tween = create_tween()
+		tween.tween_property(elemento, "modulate:a", 1.0, 0.5)
+		await tween.finished
+		await get_tree().create_timer(0.25).timeout
