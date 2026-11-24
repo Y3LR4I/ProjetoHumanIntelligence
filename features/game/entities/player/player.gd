@@ -14,6 +14,8 @@ var _auto_fire_timer := 0.0
 @onready var shoot_sound = $ShootSound
 @onready var laser_cannon = $LaserCannon
 @onready var shield = $Shield
+@onready var heal_sound = $HealSound
+@onready var heal_particles = $HealParticles
 @onready var battery = get_tree().current_scene.get_node("HUD/Battery")
 
 func _ready():
@@ -55,10 +57,17 @@ func atirar():
 	shot_fired.emit()
 	
 ## Chamado pelos pickups. Retorna true se o upgrade foi aproveitado.
-func receber_upgrade(power_id: StringName) -> bool:
+func receber_upgrade(power_id: StringName, value: float = 1.0) -> bool:
 	match power_id:
 		&"shield":
 			return shield.add_charge()
+		&"battery":
+			if not health_component.can_receive_heal():
+				return false
+			health_component.heal(value)
+			heal_sound.play()
+			heal_particles.restart()
+			return true
 	return false
 
 func _on_health_changed(health: float) -> void:
