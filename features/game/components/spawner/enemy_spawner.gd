@@ -22,7 +22,7 @@ func stop() -> void:
 
 func configurar_dificuldade(config: Dictionary) -> void:
 	_config = config
-	_aplicar_velocidade_em_todos()
+	_aplicar_dificuldade_em_todos()
 
 	if _running:
 		_schedule_next_spawn()
@@ -53,11 +53,9 @@ func _spawn_enemy() -> void:
 	enemy_spawned.emit(enemy)
 
 	if enemy.has_method("configurar_dificuldade"):
-		enemy.configurar_dificuldade(_config.get("velocidade", 80.0))
+		enemy.configurar_dificuldade(_config)
 
-func _aplicar_velocidade_em_todos() -> void:
-	var velocidade = _config.get("velocidade", 80.0)
-
+func _aplicar_dificuldade_em_todos() -> void:
 	for enemy in get_tree().get_nodes_in_group("inimigos"):
 		if is_instance_valid(enemy) and enemy.has_method("configurar_dificuldade"):
-			enemy.configurar_dificuldade(velocidade)
+			enemy.configurar_dificuldade(_config)

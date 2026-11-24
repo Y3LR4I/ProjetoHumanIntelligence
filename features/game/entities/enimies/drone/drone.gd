@@ -28,11 +28,15 @@ var _stage: int = -1
 var _dying: bool = false
 var _entry_speed_base: float
 var _exit_speed_base: float
+var _shoot_interval_base: float
+var _intervalo_tiro_mult: float = 1.0
+var _velocidade_projetil_mult: float = 1.0
 
 func _ready() -> void:
 	add_to_group("inimigos")
 	_entry_speed_base = hover_movement.entry_speed
 	_exit_speed_base = hover_movement.exit_speed
+	_shoot_interval_base = shoot_timer.wait_time
 	_aplicar_velocidade()
 	health_component.health_changed.connect(_on_health_changed)
 	hover_movement.hover_started.connect(_on_hover_started)
@@ -40,14 +44,23 @@ func _ready() -> void:
 	_set_stage(0)
 
 ## Chamado pelo EnemySpawner quando o nível de dificuldade muda.
-func configurar_dificuldade(velocidade: float) -> void:
-	velocidade_base = velocidade
+func configurar_dificuldade(config: Dictionary) -> void:
+	velocidade_base = config.get("velocidade", velocidade_base)
+	_intervalo_tiro_mult = config.get("intervalo_tiro_mult", 1.0)
+	_velocidade_projetil_mult = config.get("velocidade_projetil_mult", 1.0)
 	_aplicar_velocidade()
+	_aplicar_intervalo_tiro()
 
 func _aplicar_velocidade() -> void:
 	var fator: float = velocidade_base / VELOCIDADE_REFERENCIA
 	hover_movement.entry_speed = _entry_speed_base * fator
 	hover_movement.exit_speed = _exit_speed_base * fator
+
+func _aplicar_intervalo_tiro() -> void:
+	var mult := _intervalo_tiro_mult
+	if _stage == health_sprites.size() - 1:
+		mult *= critical_fire_interval_multiplier
+	shoot_timer.wait_time = _shoot_interval_base * mult
 
 func _on_hover_started() -> void:
 	shoot_timer.start()
@@ -69,6 +82,7 @@ func _launch_missile() -> void:
 		return
 
 	var missile = missile_scene.instantiate()
+	missile.speed *= _velocidade_projetil_mult
 	missile.global_position = missile_spawn.global_position
 
 	var target := get_tree().get_first_node_in_group("player") as Node2D
@@ -92,8 +106,7 @@ func _set_stage(stage: int) -> void:
 	if stage < health_sprite_scales.size():
 		sprite.scale = Vector2.ONE * health_sprite_scales[stage]
 
-	if stage == health_sprites.size() - 1:
-		shoot_timer.wait_time *= critical_fire_interval_multiplier
+	_aplicar_intervalo_tiro()
 
 func destruir_na_borda() -> void:
 	_dying = true

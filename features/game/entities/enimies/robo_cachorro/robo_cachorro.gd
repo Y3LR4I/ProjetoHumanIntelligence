@@ -17,17 +17,24 @@ extends CharacterBody2D
 var _walk_sets: Array
 var _current_walk_frames: Array[Texture2D]
 var _walk_frame_index: int = 0
+var _shoot_interval_base: float
+var _intervalo_tiro_mult: float = 1.0
+var _velocidade_projetil_mult: float = 1.0
 
 func _ready():
 	add_to_group("inimigos")
 	_walk_sets = [walk_frames_stage0, walk_frames_stage1, walk_frames_stage2, walk_frames_stage3]
 	_set_walk_stage(0)
+	_shoot_interval_base = shoot_timer.wait_time
 	health_component.health_changed.connect(_on_health_changed)
 	_aplicar_velocidade()
 
-func configurar_dificuldade(velocidade: float) -> void:
-	velocidade_base = velocidade
+func configurar_dificuldade(config: Dictionary) -> void:
+	velocidade_base = config.get("velocidade", velocidade_base)
+	_intervalo_tiro_mult = config.get("intervalo_tiro_mult", 1.0)
+	_velocidade_projetil_mult = config.get("velocidade_projetil_mult", 1.0)
 	_aplicar_velocidade()
+	shoot_timer.wait_time = _shoot_interval_base * _intervalo_tiro_mult
 
 func _aplicar_velocidade() -> void:
 	zigzag_movement.vertical_speed = velocidade_base
@@ -36,6 +43,7 @@ func atirar():
 	for angle_degrees in spread_angles_degrees:
 		var projectile = projectile_scene.instantiate()
 		projectile.direction = Vector2.DOWN.rotated(deg_to_rad(angle_degrees))
+		projectile.speed *= _velocidade_projetil_mult
 		projectile.global_position = $ProjectileSpawn.global_position
 		get_tree().current_scene.add_child(projectile)
 
