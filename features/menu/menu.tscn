@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://hjsxvicrifpc"]
 
 [ext_resource type="Script" uid="uid://bm3gwkljtwyxl" path="res://features/menu/menu.gd" id="1_vjb58"]
-[ext_resource type="Texture2D" uid="uid://dhdapg02v4dts" path="res://assets/textures/fundo-fabrica-menu.svg" id="1_yqeox"]
+[ext_resource type="Texture2D" uid="uid://di4pvvraic0uk" path="res://assets/textures/tela nova menu volta.jpg" id="2_5h3sk"]
 [ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
 [ext_resource type="AudioStream" uid="uid://c51v6eu5lhsem" path="res://assets/audio/som_menu.mp3" id="4_4tupy"]
 [ext_resource type="AudioStream" uid="uid://cxbo8i2dc33kn" path="res://assets/audio/som_plup_hover_menu.mp3" id="5_5h3sk"]
@@ -43,7 +43,7 @@ offset_left = -47.0
 offset_top = -46.0
 offset_right = 1361.0
 offset_bottom = 722.0
-texture = ExtResource("1_yqeox")
+texture = ExtResource("2_5h3sk")
 expand_mode = 1
 
 [node name="backggroundfade" type="ColorRect" parent="." unique_id=812857092]
@@ -126,9 +126,9 @@ stream = ExtResource("5_5h3sk")
 volume_db = -15.0
 
 [node name="GlitchOverlay" type="ColorRect" parent="." unique_id=1227618025]
+visible = false
 layout_mode = 0
 offset_right = 1293.0
 offset_bottom = 734.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
-

@@ -2,12 +2,14 @@ extends Control
 
 @onready var glitch_overlay = $GlitchOverlay
 @onready var credits_content = $CreditsContent
-@onready var title = $CreditsContent/Title
 @onready var terminal_text = $CreditsContent/TerminalText
-@onready var members = $CreditsContent/Members
-@onready var footer = $CreditsContent/Footer
 @onready var back_button = $BackButton
-@onready var game_title = $CreditsContent/GameTitle
+@onready var title = $Title
+@onready var members = $CreditsContent/Members
+@onready var footer = $CreditsContent/Members/Footer
+@onready var game_title = $CreditsContent/Members/GameTitle
+@onready var click_sound = $ClickSound
+@onready var terminal_sound = $TerminalSound
 
 var glitch_tween: Tween
 
@@ -31,6 +33,8 @@ func _ready() -> void:
 	game_title.modulate.a = 0.0
 	members.modulate.a = 1.0
 	footer.modulate.a = 0.0
+	
+	back_button.mouse_entered.connect(_on_back_hover)
 
 	for membro in members.get_children():
 		membro.modulate.a = 0.0
@@ -41,6 +45,13 @@ func _ready() -> void:
 
 	# 1. Digitação das mensagens
 	await digitar_terminal()
+	
+	var tween = create_tween()
+	tween.tween_property(terminal_text, "modulate:a", 0.0, 0.5)
+	await tween.finished
+
+	terminal_text.text = ""
+	terminal_text.visible = false
 
 	# 2. Aparece o nome do jogo
 	await aparecer_elemento(game_title)
@@ -51,6 +62,9 @@ func _ready() -> void:
 
 	# 4. Aparece o rodapé
 	await aparecer_elemento(footer)
+
+func _on_back_hover():
+	click_sound.play()
 	
 func aparecer_elemento(elemento: CanvasItem) -> void:
 	var tween = create_tween()
@@ -93,9 +107,13 @@ func digitar_terminal():
 	terminal_text.text = ""
 
 	for linha in TERMINAL_LINES:
+		terminal_sound.play()
+
 		for caractere in linha:
 			terminal_text.text += caractere
 			await get_tree().create_timer(0.035).timeout
+
+		terminal_sound.stop()
 
 		terminal_text.text += "\n"
 		await get_tree().create_timer(0.5).timeout
