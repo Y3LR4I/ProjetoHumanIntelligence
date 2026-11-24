@@ -9,6 +9,7 @@ const FONT_SIZE_HOVER = 45
 @onready var name_input = $NameInput
 @onready var submit_button = $SubmitButton
 @onready var status_label = $StatusLabel
+@onready var virtual_keyboard = $VirtualKeyboard
 
 
 func _ready() -> void:
@@ -18,6 +19,11 @@ func _ready() -> void:
 	submit_button.pressed.connect(_on_submit_pressed)
 	name_input.text_submitted.connect(func(_text): _on_submit_pressed())
 
+	virtual_keyboard.char_entered.connect(_on_virtual_char_entered)
+	virtual_keyboard.backspace_pressed.connect(_on_virtual_backspace)
+	virtual_keyboard.submit_requested.connect(_on_submit_pressed)
+	InputDeviceManager.device_changed.connect(_on_device_changed)
+
 
 func open(score: int) -> void:
 	score_label.text = "PONTUAÇÃO: %d" % score
@@ -25,7 +31,35 @@ func open(score: int) -> void:
 	submit_button.disabled = false
 	name_input.text = ""
 	visible = true
-	name_input.grab_focus()
+	_atualizar_modo_entrada()
+
+
+## Com controle, o teclado da tela assume a digitação (o jogador não tem
+## como digitar pelo teclado físico enquanto está no controle); no teclado
+## físico, o campo de texto funciona normalmente.
+func _atualizar_modo_entrada() -> void:
+	var usando_controle = InputDeviceManager.using_gamepad
+	virtual_keyboard.visible = usando_controle
+	name_input.editable = not usando_controle
+
+	if usando_controle:
+		virtual_keyboard.focus_first_key()
+	else:
+		name_input.grab_focus()
+
+
+func _on_device_changed(_using_gamepad: bool) -> void:
+	if visible:
+		_atualizar_modo_entrada()
+
+
+func _on_virtual_char_entered(ch: String) -> void:
+	if name_input.text.length() < name_input.max_length:
+		name_input.text += ch
+
+
+func _on_virtual_backspace() -> void:
+	name_input.text = name_input.text.substr(0, name_input.text.length() - 1)
 
 
 func set_status(text: String) -> void:

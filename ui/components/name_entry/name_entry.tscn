@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/components/name_entry/name_entry.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/GCVenscaMonoDemo-Bold.ttf" id="2_font"]
+[ext_resource type="PackedScene" path="res://ui/components/virtual_keyboard/virtual_keyboard.tscn" id="3_virtual_keyboard"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font = ExtResource("2_font")
@@ -48,9 +49,9 @@ color = Color(0, 0, 0, 0.78)
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 0.0
-offset_top = 140.0
+offset_top = 20.0
 offset_right = 1280.0
-offset_bottom = 220.0
+offset_bottom = 100.0
 text = "FIM DE JOGO"
 label_settings = SubResource("LabelSettings_title")
 horizontal_alignment = 1
@@ -59,9 +60,9 @@ vertical_alignment = 1
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 0.0
-offset_top = 240.0
+offset_top = 110.0
 offset_right = 1280.0
-offset_bottom = 290.0
+offset_bottom = 155.0
 text = "PONTUAÇÃO: 0"
 label_settings = SubResource("LabelSettings_score")
 horizontal_alignment = 1
@@ -70,9 +71,12 @@ vertical_alignment = 1
 [node name="NameInput" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 440.0
-offset_top = 380.0
+offset_top = 170.0
 offset_right = 840.0
-offset_bottom = 436.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 0.5)
+theme_override_colors/caret_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_input")
@@ -81,12 +85,19 @@ placeholder_text = "SEU NOME"
 alignment = 1
 max_length = 20
 
+[node name="VirtualKeyboard" parent="." instance=ExtResource("3_virtual_keyboard")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 235.0
+offset_right = 1280.0
+offset_bottom = 615.0
+
 [node name="SubmitButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 490.0
-offset_top = 460.0
+offset_top = 630.0
 offset_right = 790.0
-offset_bottom = 520.0
+offset_bottom = 680.0
 theme_override_fonts/font = ExtResource("2_font")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_normal")
@@ -97,9 +108,9 @@ alignment = 1
 [node name="StatusLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 0.0
-offset_top = 540.0
+offset_top = 690.0
 offset_right = 1280.0
-offset_bottom = 580.0
+offset_bottom = 718.0
 text = ""
 label_settings = SubResource("LabelSettings_status")
 horizontal_alignment = 1
