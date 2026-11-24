@@ -17,8 +17,13 @@ extends Node
 @export var min_time_between_drops: float = 40.0
 @export var guaranteed_after: float = 75.0
 
+const VALUE_OVERRIDE_CONFIG_KEY := {
+	&"battery": "cura_valor",
+}
+
 var _drop_options: Array[Dictionary] = []
 var _time_since_last_drop: float = 0.0
+var _config: Dictionary = {}
 
 ## Cadastra um tipo de upgrade que pode cair. `can_drop` diz se esse tipo
 ## faz sentido dropar agora (ex: o player ainda tem espaço pra ele).
@@ -27,6 +32,7 @@ func add_drop_option(scene: PackedScene, can_drop: Callable) -> void:
 
 ## Chamado quando o nível de dificuldade muda (config do DifficultyManager).
 func configurar_dificuldade(config: Dictionary) -> void:
+	_config = config
 	drop_chance = config.get("chance_escudo", drop_chance)
 	min_time_between_drops = config.get("intervalo_escudo", min_time_between_drops)
 	guaranteed_after = config.get("garantia_escudo", guaranteed_after)
@@ -65,5 +71,10 @@ func _on_enemy_died(enemy: Node2D) -> void:
 	var scene: PackedScene = eligible[randi() % eligible.size()]
 	var pickup = scene.instantiate()
 	pickup.position = enemy.global_position
+
+	var chave_valor: String = VALUE_OVERRIDE_CONFIG_KEY.get(pickup.power_id, "")
+	if chave_valor != "" and _config.has(chave_valor):
+		pickup.value = _config[chave_valor]
+
 	# Deferred: a morte pode acontecer no meio de um callback de física.
 	get_tree().current_scene.add_child.call_deferred(pickup)
