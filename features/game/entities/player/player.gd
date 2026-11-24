@@ -4,6 +4,9 @@ signal shot_fired
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+const AUTO_FIRE_INTERVAL = 0.35
+
+var _auto_fire_timer := 0.0
 
 @export var laser_scene: PackedScene
 @onready var laser_spawn = $LaserSpawn
@@ -17,7 +20,7 @@ func _ready():
 	add_to_group("player")
 	health_component.health_changed.connect(_on_health_changed)
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
@@ -26,8 +29,17 @@ func _physics_process(_delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	# Enquanto o canhão laser está ativo o tiro normal fica bloqueado.
-	if Input.is_action_just_pressed("shoot") and not laser_cannon.is_active():
-		atirar()
+	if not laser_cannon.is_active():
+		if Input.is_action_just_pressed("shoot"):
+			atirar()
+			_auto_fire_timer = AUTO_FIRE_INTERVAL
+		elif Input.is_action_pressed("shoot"):
+			_auto_fire_timer -= delta
+			if _auto_fire_timer <= 0.0:
+				atirar()
+				_auto_fire_timer = AUTO_FIRE_INTERVAL
+		else:
+			_auto_fire_timer = 0.0
 	if Input.is_action_just_pressed("power_laser_cannon"):
 		laser_cannon.try_activate()
 	if Input.is_action_just_pressed("power_shield"):

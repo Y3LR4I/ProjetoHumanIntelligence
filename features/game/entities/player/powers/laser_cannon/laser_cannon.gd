@@ -112,10 +112,7 @@ func _destroy_enemy_projectiles() -> void:
 			area.queue_free()
 
 func _is_enemy_projectile(area: Area2D) -> bool:
-	# Wrench/Parafuso ainda não estão no grupo; depois do 1º, o Godot renomeia
-	# as cópias (ex: "@Wrench@12"), por isso o "in" em vez de "==".
-	return area.is_in_group("enemy_projectile") \
-		or "Wrench" in area.name or "Parafuso" in area.name
+	return area.is_in_group("enemy_projectile")
 
 func _update_beam_geometry() -> void:
 	var length: float = maxf(global_position.y - beam_top_y, 0.0)

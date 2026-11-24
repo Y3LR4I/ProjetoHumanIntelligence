@@ -14,8 +14,6 @@ var target: Node2D
 
 var _elapsed: float = 0.0
 
-@onready var flame: Polygon2D = $Flame
-
 func _ready() -> void:
 	add_to_group("enemy_projectile")
 	rotation = direction.angle()
@@ -30,7 +28,6 @@ func _physics_process(delta: float) -> void:
 
 	position += direction * speed * delta
 	rotation = direction.angle()
-	flame.scale.x = randf_range(0.7, 1.25)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "EnemyProjectileExit":

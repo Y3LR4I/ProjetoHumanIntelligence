@@ -1,22 +1,62 @@
-[gd_scene format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://features/game/entities/projectiles/missile/missile.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/textures/missile.svg" id="2_texture"]
+[ext_resource type="Texture2D" path="res://assets/textures/missile-anim.png" id="2_anim"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_missile"]
 size = Vector2(28, 9)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0"]
+atlas = ExtResource("2_anim")
+region = Rect2(0, 0, 180, 140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1"]
+atlas = ExtResource("2_anim")
+region = Rect2(180, 0, 180, 140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2"]
+atlas = ExtResource("2_anim")
+region = Rect2(360, 0, 180, 140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("2_anim")
+region = Rect2(540, 0, 180, 140)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4"]
+atlas = ExtResource("2_anim")
+region = Rect2(720, 0, 180, 140)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_missile"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 14.0
+}]
+
 [node name="Missile" type="Area2D"]
 script = ExtResource("1_script")
 
-[node name="Flame" type="Polygon2D" parent="."]
-position = Vector2(-13, 0)
-color = Color(1, 0.6, 0.15, 0.9)
-polygon = PackedVector2Array(0, -3, 0, 3, -10, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("2_texture")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.28, 0.28)
+sprite_frames = SubResource("SpriteFrames_missile")
+animation = &"fly"
+autoplay = "fly"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_missile")

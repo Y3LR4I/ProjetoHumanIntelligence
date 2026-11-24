@@ -4,6 +4,9 @@ extends Area2D
 @export var damage: float = 1.0
 @export var direction: Vector2 = Vector2.DOWN
 
+func _ready() -> void:
+	add_to_group("enemy_projectile")
+
 func _physics_process(delta):
 	position += direction * speed * delta
 	rotation += 6.0 * delta

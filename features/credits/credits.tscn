@@ -8,8 +8,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_77t7a"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jjol"]
-
 [node name="Credits" type="Control" unique_id=886418731]
 layout_mode = 3
 anchors_preset = 0
@@ -122,18 +120,17 @@ horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="." unique_id=770155187]
 layout_mode = 0
-offset_right = 1252.0
-offset_bottom = 110.0
+offset_left = 1130.0
+offset_top = 24.0
+offset_right = 1250.0
+offset_bottom = 84.0
 theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_1pq0j")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_gmidc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77t7a")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_4jjol")
 text = "[ X ]"
-alignment = 2
-icon_alignment = 2
-vertical_icon_alignment = 0
+alignment = 1
 
 [node name="GlitchOverlay" type="ColorRect" parent="." unique_id=486413656]
 layout_mode = 0
