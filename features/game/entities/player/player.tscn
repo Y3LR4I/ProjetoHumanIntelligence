@@ -7,9 +7,28 @@
 [ext_resource type="AudioStream" uid="uid://cjusjrpic4m5q" path="res://assets/audio/laser.wav" id="5_8pqjw"]
 [ext_resource type="PackedScene" path="res://features/game/entities/player/powers/laser_cannon/laser_cannon.tscn" id="6_laser_cannon"]
 [ext_resource type="PackedScene" path="res://features/game/entities/player/powers/shield/shield.tscn" id="7_shield"]
+[ext_resource type="AudioStream" uid="uid://ce30n6thlntpa" path="res://assets/audio/escudo_coletar.wav" id="8_heal_sfx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emv1h"]
 size = Vector2(60, 51)
+
+[sub_resource type="Gradient" id="Gradient_heal"]
+colors = PackedColorArray(0.3, 0.8, 1, 1, 0.3, 0.8, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_heal"]
+gradient = SubResource("Gradient_heal")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_heal"]
+emission_shape = 1
+emission_sphere_radius = 14.0
+direction = Vector3(0, -1, 0)
+spread = 50.0
+initial_velocity_min = 30.0
+initial_velocity_max = 70.0
+gravity = Vector3(0, -40, 0)
+scale_min = 4.0
+scale_max = 7.0
+color_ramp = SubResource("GradientTexture1D_heal")
 
 [node name="player" type="CharacterBody2D" unique_id=917865365]
 script = ExtResource("1_ouxun")
@@ -40,3 +59,17 @@ position = Vector2(-35, -15)
 [node name="Shield" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("7_shield")]
 position = Vector2(2, 6)
 health_component = NodePath("../HealthComponent")
+
+[node name="HealSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_heal_sfx")
+volume_db = -20.0
+
+[node name="HealParticles" type="GPUParticles2D" parent="."]
+position = Vector2(2, 0)
+emitting = false
+amount = 16
+lifetime = 0.55
+one_shot = true
+explosiveness = 0.85
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_heal")

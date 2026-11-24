@@ -1,5 +1,8 @@
 extends Node2D
 
+const SHIELD_PICKUP_SCENE = preload("res://features/game/entities/pickups/shield_pickup/shield_pickup.tscn")
+const BATTERY_PICKUP_SCENE = preload("res://features/game/entities/pickups/battery_pickup/battery_pickup.tscn")
+
 @onready var player = $player
 @onready var pause_menu = $UILayer/PauseMenu
 @onready var name_entry = $UILayer/NameEntry
@@ -23,8 +26,10 @@ func _ready() -> void:
 	player.shot_fired.connect(shoot_slot.pulse)
 	player.shield.status_changed.connect(shield_slot.update_status)
 
-	# Upgrade do escudo cai dos robôs só se o player ainda puder guardar a carga.
-	loot_dropper.can_drop = player.shield.can_receive_charge
+	# Carga de escudo só cai se o player ainda puder guardar mais uma, e a
+	# bateria só cai se ele não estiver com a vida cheia.
+	loot_dropper.add_drop_option(SHIELD_PICKUP_SCENE, player.shield.can_receive_charge)
+	loot_dropper.add_drop_option(BATTERY_PICKUP_SCENE, player.health_component.can_receive_heal)
 	enemy_spawner.enemy_spawned.connect(loot_dropper.track)
 
 	ScoreManager.resetar_score()

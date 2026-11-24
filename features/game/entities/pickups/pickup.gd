@@ -4,12 +4,16 @@ extends Area2D
 ## encostar, entrega `power_id` pra ele (player.receber_upgrade) e some.
 
 @export var power_id: StringName = &"shield"
+## Quanto esse upgrade entrega (ex: pontos de vida). Repassado pro
+## `receber_upgrade` do player; o `ValueLabel`, se existir, mostra esse número.
+@export var value: float = 1.0
 @export var fall_speed: float = 90.0
 @export var sway_speed: float = 22.0
 @export var glow_color: Color = Color(0.3, 0.85, 1.0)
 @export var glow_radius: float = 26.0
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var value_label: Label = get_node_or_null("ValueLabel")
 
 var _time: float = 0.0
 var _base_scale: Vector2
@@ -17,6 +21,8 @@ var _base_scale: Vector2
 func _ready() -> void:
 	add_to_group("pickups")
 	_base_scale = sprite.scale
+	if value_label:
+		value_label.text = "+%d" % int(value)
 
 func _physics_process(delta: float) -> void:
 	_time += delta
@@ -31,7 +37,7 @@ func _draw() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player") and body.has_method("receber_upgrade"):
-		if body.receber_upgrade(power_id):
+		if body.receber_upgrade(power_id, value):
 			queue_free()
 
 func _on_area_entered(area: Area2D) -> void:
