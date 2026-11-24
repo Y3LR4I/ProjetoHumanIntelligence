@@ -1,34 +1,112 @@
 extends Control
 
-const FONT_SIZE_NORMAL = 50
-const FONT_SIZE_HOVER = 55
-const FADE_IN_DURATION = 1.5
+const FADE_DURATION = 0.6
 
-@onready var score_container = $ScoreContainer
+@onready var scoreboard_content = $ScoreboardContent
+@onready var title = $ScoreboardContent/Title
+@onready var terminal_text = $ScoreboardContent/TerminalText
+@onready var ranking_header = $ScoreboardContent/RankingHeader
+@onready var score_container = $ScoreboardContent/ScoreContainer
+@onready var empty_label = $ScoreboardContent/EmptyLabel
 @onready var back_button = $BackButton
-@onready var title = $Title
 @onready var background = $Background
 @onready var fade_overlay = $FadeOverlay
-@onready var empty_label = $EmptyLabel
+@onready var click_sound = $ClickSound
+@onready var terminal_sound = $ScoreSound
 
+var scores_atuais: Array = []
+var dados_recebidos = false
+var terminal_concluido = false
 
-func _ready():
-	ScoreboardManager.scores_received.connect(_on_scores_received)
-	ScoreboardManager.get_top_scores(5)
-	_animar_entrada()
-	configurar_botao(back_button, "VOLTAR", "VOLTAR")
+const TERMINAL_LINES = [
+	"> CONNECTING TO DATABASE...",
+	"> RETRIEVING PLAYER RECORDS...",
+	"> RANKING DATA LOADED."
+]
+
+func _ready() -> void:
+	fade_overlay.visible = false
+
+	# Elementos visíveis desde o início
+	title.modulate.a = 1.0
+	back_button.modulate.a = 1.0
+	terminal_text.modulate.a = 1.0
+
+	# Elementos que aparecem depois
+	ranking_header.modulate.a = 0.0
+	score_container.modulate.a = 0.0
+	empty_label.modulate.a = 0.0
+	
+	back_button.mouse_entered.connect(_on_back_hover)
+
+	back_button.text = "[ X ]"
 	back_button.pressed.connect(_on_back_pressed)
 	InputDeviceManager.focus_when_gamepad(back_button)
 
-func _on_scores_received(scores: Array):
-	if scores.is_empty():
+	ScoreboardManager.scores_received.connect(_on_scores_received)
+	ScoreboardManager.get_top_scores(5)
+
+	await get_tree().create_timer(0.5).timeout
+
+	# Digita as mensagens do terminal
+	await digitar_terminal()
+
+	terminal_concluido = true
+
+	# Faz o terminal desaparecer
+	var tween = create_tween()
+	tween.tween_property(terminal_text, "modulate:a", 0.0, 0.5)
+	await tween.finished
+
+	terminal_text.visible = false
+
+	# Apresenta o ranking
+	await aparecer_elemento(ranking_header)
+
+	if dados_recebidos:
+		await exibir_resultados()
+		
+func _on_back_hover():
+	click_sound.play()
+	
+func digitar_terminal() -> void:
+	terminal_text.text = ""
+
+	for linha in TERMINAL_LINES:
+		terminal_sound.play()
+
+		for caractere in linha:
+			terminal_text.text += caractere
+			await get_tree().create_timer(0.035).timeout
+
+		terminal_sound.stop()
+
+		terminal_text.text += "\n"
+		await get_tree().create_timer(0.4).timeout
+
+
+func aparecer_elemento(elemento: CanvasItem) -> void:
+	var tween = create_tween()
+	tween.tween_property(elemento, "modulate:a", 1.0, FADE_DURATION)
+	await tween.finished
+
+func _on_scores_received(scores: Array) -> void:
+	scores_atuais = scores
+	dados_recebidos = true
+
+	if terminal_concluido:
+		await exibir_resultados()
+		
+func exibir_resultados() -> void:
+	if scores_atuais.is_empty():
 		empty_label.visible = true
 		score_container.visible = false
-		return
-	
-	empty_label.visible = false
-	score_container.visible = true
-	_popular_placar_com_dados_reais(scores)
+		await aparecer_elemento(empty_label)
+	else:
+		empty_label.visible = false
+		score_container.visible = true
+		_popular_placar_com_dados_reais(scores_atuais)
+		await aparecer_elemento(score_container)
 
 func _popular_placar_com_dados_reais(scores: Array):
 	for i in range(score_container.get_child_count()):
@@ -54,7 +132,7 @@ func _criar_entrada_placar(rank: int, name: String, score: int) -> HBoxContainer
 	rank_label.add_theme_font_size_override("font_size", 40)
 	rank_label.custom_minimum_size = Vector2(80, 70)
 	rank_label.horizontal_alignment = 1
-	rank_label.add_theme_color_override("font_color", Color.WHITE)
+	rank_label.add_theme_color_override("font_color", Color("#39FF65"))
 	container.add_child(rank_label)
 
 	var name_label = Label.new()
@@ -62,7 +140,7 @@ func _criar_entrada_placar(rank: int, name: String, score: int) -> HBoxContainer
 	name_label.add_theme_font_size_override("font_size", 40)
 	name_label.custom_minimum_size = Vector2(400, 70)
 	name_label.horizontal_alignment = 0
-	name_label.add_theme_color_override("font_color", Color.WHITE)
+	name_label.add_theme_color_override("font_color", Color("#39FF65"))
 	container.add_child(name_label)
 
 	var score_label = Label.new()
@@ -70,49 +148,10 @@ func _criar_entrada_placar(rank: int, name: String, score: int) -> HBoxContainer
 	score_label.add_theme_font_size_override("font_size", 40)
 	score_label.custom_minimum_size = Vector2(200, 70)
 	score_label.horizontal_alignment = 2
-	score_label.add_theme_color_override("font_color", Color.WHITE)
+	score_label.add_theme_color_override("font_color", Color("#39FF65"))
 	container.add_child(score_label)
 
 	return container
-
-func _animar_entrada():
-	var elementos = [background, fade_overlay, title, score_container, back_button, empty_label]
-
-	for elemento in elementos:
-		elemento.modulate.a = 0.0
-
-	var tween = create_tween()
-	tween.set_parallel(true)
-
-	for elemento in elementos:
-		tween.tween_property(elemento, "modulate:a", 1.0, FADE_IN_DURATION)
-
-func configurar_botao(botao: Button, texto_normal: String, texto_hover: String):
-	botao.text = texto_normal
-
-	botao.mouse_entered.connect(_mouse_entrou.bind(botao, texto_hover))
-	botao.mouse_exited.connect(_mouse_saiu.bind(botao, texto_normal))
-	# Controle: o botão selecionado pelo D-pad ganha o mesmo destaque do hover.
-	botao.focus_entered.connect(_mouse_entrou.bind(botao, texto_hover))
-	botao.focus_exited.connect(_mouse_saiu.bind(botao, texto_normal))
-
-func _mouse_entrou(botao: Button, texto: String):
-	botao.text = texto
-	_animar_tamanho_fonte(botao, FONT_SIZE_NORMAL, FONT_SIZE_HOVER)
-
-func _mouse_saiu(botao: Button, texto: String):
-	botao.text = texto
-	_animar_tamanho_fonte(botao, FONT_SIZE_HOVER, FONT_SIZE_NORMAL)
-
-func _animar_tamanho_fonte(botao: Button, de: int, para: int):
-	var tween = create_tween()
-	tween.tween_method(
-		func(tamanho):
-			botao.add_theme_font_size_override("font_size", tamanho),
-		de,
-		para,
-		0.15
-	)
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://features/menu/menu.tscn")

@@ -1,90 +1,142 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://b1gly1x4bthhs"]
 
-[ext_resource type="Script" path="res://features/scoreboard/scoreboard.gd" id="1_vjb58"]
-[ext_resource type="Texture2D" path="res://assets/fundo-fabrica-placar.jpg" id="1_yqeox"]
-[ext_resource type="FontFile" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
+[ext_resource type="Script" uid="uid://dk0wsmk0w5phj" path="res://features/scoreboard/scoreboard.gd" id="1_vjb58"]
+[ext_resource type="FontFile" uid="uid://lduo75r2gx8l" path="res://assets/fonts/GCVenscaMonoDemo-Bold.ttf" id="3_con2f"]
+[ext_resource type="AudioStream" uid="uid://cxbo8i2dc33kn" path="res://assets/audio/som_plup_hover_menu.mp3" id="3_k1uts"]
+[ext_resource type="AudioStream" uid="uid://dst1r2kidp77j" path="res://assets/audio/digitar_matrix.wav" id="4_ho45g"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font = ExtResource("3_con2f")
 font_size = 80
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_normal"]
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hover"]
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pressed"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lfqe6"]
 
-[node name="Scoreboard" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k1uts"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ho45g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxg4x"]
+
+[node name="Scoreboard" type="Control" unique_id=1112800329]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 23.0
+offset_right = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vjb58")
 
-[node name="BlackBackground" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1427753832]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
-color = Color(0, 0, 0, 1)
+color = Color(0.019607844, 0.03137255, 0.019607844, 1)
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="ScoreboardContent" type="VBoxContainer" parent="." unique_id=707975202]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -608.0
+offset_top = -280.0
+offset_right = 612.0
+offset_bottom = 363.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="Title" type="Label" parent="ScoreboardContent" unique_id=1205596407]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 42
+text = "PLACAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TerminalText" type="Label" parent="ScoreboardContent" unique_id=81064278]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+
+[node name="RankingHeader" type="HBoxContainer" parent="ScoreboardContent" unique_id=1220310720]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="PositionLabel" type="Label" parent="ScoreboardContent/RankingHeader" unique_id=103923530]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 18
+text = "POS."
+horizontal_alignment = 1
+
+[node name="NameLabel" type="Label" parent="ScoreboardContent/RankingHeader" unique_id=698578113]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 18
+text = "JOGADOR"
+
+[node name="ScoreLabel" type="Label" parent="ScoreboardContent/RankingHeader" unique_id=823614426]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 18
+text = "PONTUAÇÃO"
+horizontal_alignment = 2
+
+[node name="ScoreContainer" type="VBoxContainer" parent="ScoreboardContent" unique_id=362375419]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="EmptyLabel" type="Label" parent="ScoreboardContent" unique_id=1459834503]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
+theme_override_font_sizes/font_size = 18
+text = "Nenhum registro encontrado."
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="." unique_id=698482903]
 layout_mode = 0
-offset_left = -47.0
-offset_top = -46.0
-offset_right = 1361.0
-offset_bottom = 722.0
-texture = ExtResource("1_yqeox")
-expand_mode = 1
+offset_left = 1102.0
+offset_top = 48.0
+offset_right = 1184.0
+offset_bottom = 158.0
+theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_lfqe6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_k1uts")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ho45g")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_uxg4x")
+text = "[ X ]"
+alignment = 2
+icon_alignment = 2
+vertical_icon_alignment = 0
 
-[node name="FadeOverlay" type="ColorRect" parent="."]
+[node name="FadeOverlay" type="ColorRect" parent="." unique_id=622369684]
+visible = false
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 740.0
-color = Color(0, 0, 0, 0.3)
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
 
-[node name="Title" type="Label" parent="."]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 50.0
-offset_right = 1230.0
-offset_bottom = 150.0
-text = "PLACAR"
-label_settings = SubResource("LabelSettings_title")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=426301805]
+stream = ExtResource("3_k1uts")
+volume_db = -15.0
 
-[node name="ScoreContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 180.0
-offset_right = 1080.0
-offset_bottom = 580.0
-alignment = 1
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="EmptyLabel" type="Label" parent="."]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 320.0
-offset_right = 1080.0
-offset_bottom = 400.0
-text = "Sem jogadores no placar"
-label_settings = SubResource("LabelSettings_title")
-horizontal_alignment = 1
-vertical_alignment = 1
-visible = false
-
-[node name="BackButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 50.0
-offset_top = 620.0
-offset_right = 250.0
-offset_bottom = 680.0
-theme_override_fonts/font = ExtResource("3_con2f")
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxEmpty_normal")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_hover")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_pressed")
-text = "VOLTAR"
-alignment = 0
+[node name="ScoreSound" type="AudioStreamPlayer" parent="." unique_id=1628656163]
+stream = ExtResource("4_ho45g")
+volume_db = -10.0

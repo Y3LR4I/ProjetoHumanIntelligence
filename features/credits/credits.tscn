@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dmf7j3js10ftn"]
 
 [ext_resource type="Script" uid="uid://i4otufaqi5mj" path="res://features/credits/credits.gd" id="1_odkmk"]
+[ext_resource type="AudioStream" uid="uid://cxbo8i2dc33kn" path="res://assets/audio/som_plup_hover_menu.mp3" id="2_4jjol"]
+[ext_resource type="AudioStream" uid="uid://dst1r2kidp77j" path="res://assets/audio/digitar_matrix.wav" id="3_1pq0j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1pq0j"]
 
@@ -23,38 +25,48 @@ offset_right = 1277.0
 offset_bottom = 721.0
 color = Color(0.019607844, 0.03137255, 0.019607844, 1)
 
-[node name="CreditsContent" type="VBoxContainer" parent="." unique_id=76536291]
+[node name="Title" type="Label" parent="." unique_id=303726018]
 layout_mode = 0
-offset_left = 4.0
-offset_right = 1267.0
-offset_bottom = 713.0
-theme_override_constants/separation = 25
-alignment = 1
-
-[node name="Title" type="Label" parent="CreditsContent" unique_id=303726018]
-layout_mode = 2
+offset_left = 16.0
+offset_top = 66.0
+offset_right = 1260.0
+offset_bottom = 148.0
 theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
 theme_override_font_sizes/font_size = 50
 text = "CRÉDITOS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CreditsContent" type="Control" parent="." unique_id=485347798]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 712.0
+
 [node name="TerminalText" type="Label" parent="CreditsContent" unique_id=519099527]
-layout_mode = 2
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 0
+offset_left = 21.0
+offset_top = 146.0
+offset_right = 1244.0
+offset_bottom = 296.0
 theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
 
-[node name="GameTitle" type="Label" parent="CreditsContent" unique_id=1449609393]
+[node name="Members" type="VBoxContainer" parent="CreditsContent" unique_id=947390052]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 162.0
+offset_right = 1258.0
+offset_bottom = 521.0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="GameTitle" type="Label" parent="CreditsContent/Members" unique_id=1449609393]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
 theme_override_font_sizes/font_size = 32
 text = "— HUMAN INTELLIGENCE —"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Members" type="VBoxContainer" parent="CreditsContent" unique_id=947390052]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
 
 [node name="Member1" type="VBoxContainer" parent="CreditsContent/Members" unique_id=42189685]
 layout_mode = 2
@@ -71,7 +83,7 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
 theme_override_font_sizes/font_size = 14
-text = "GAME DESIGN / PROGRAMAÇÃO"
+text = "GAME DESIGNER / GAME PROGRAMMER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -90,7 +102,7 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
 theme_override_font_sizes/font_size = 14
-text = "GAME DESIGN / GAME WRITTER / AUDIO"
+text = "GAME DESIGN / GAME DEV / SOUND DESIGNER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -109,11 +121,11 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
 theme_override_font_sizes/font_size = 14
-text = "GAME DEV / PROGRAMAÇÃO"
+text = "GAME DEV / GAME PROGRAMMER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Footer" type="Label" parent="CreditsContent" unique_id=960607165]
+[node name="Footer" type="Label" parent="CreditsContent/Members" unique_id=960607165]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.15686275, 0.72156864, 0.29411766, 1)
 theme_override_font_sizes/font_size = 14
@@ -122,8 +134,10 @@ horizontal_alignment = 1
 
 [node name="BackButton" type="Button" parent="." unique_id=770155187]
 layout_mode = 0
-offset_right = 1252.0
-offset_bottom = 110.0
+offset_left = 1143.0
+offset_top = 40.0
+offset_right = 1215.0
+offset_bottom = 150.0
 theme_override_colors/font_color = Color(0.22352941, 1, 0.39607844, 1)
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_1pq0j")
@@ -136,9 +150,18 @@ icon_alignment = 2
 vertical_icon_alignment = 0
 
 [node name="GlitchOverlay" type="ColorRect" parent="." unique_id=486413656]
+visible = false
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 727.0
 mouse_filter = 2
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=371797913]
+stream = ExtResource("2_4jjol")
+volume_db = -15.0
+
+[node name="TerminalSound" type="AudioStreamPlayer" parent="." unique_id=477015725]
+stream = ExtResource("3_1pq0j")
+volume_db = -10.0
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
