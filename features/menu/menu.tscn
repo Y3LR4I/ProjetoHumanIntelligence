@@ -18,8 +18,6 @@ font_size = 90
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i6lef"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mj5lg"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce0il"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mhnvy"]
@@ -75,9 +73,9 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_v86rl")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_70i5f")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_13sgg")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_i6lef")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_mj5lg")
 text = "JOGAR"
 alignment = 0
+focus_neighbor_top = NodePath("../ExitButton")
 
 [node name="ScoreButton" type="Button" parent="." unique_id=1099111842]
 layout_mode = 0
@@ -117,6 +115,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_ce0il")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_mhnvy")
 text = "SAIR"
 alignment = 0
+focus_neighbor_bottom = NodePath("../PlayButton")
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="." unique_id=1601934251]
 stream = ExtResource("4_4tupy")

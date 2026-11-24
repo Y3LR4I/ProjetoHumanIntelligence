@@ -145,9 +145,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_gmidc")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_77t7a")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_4jjol")
 text = "[ X ]"
-alignment = 2
-icon_alignment = 2
-vertical_icon_alignment = 0
+alignment = 1
 
 [node name="GlitchOverlay" type="ColorRect" parent="." unique_id=486413656]
 visible = false

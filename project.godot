@@ -80,6 +80,10 @@ pause={
 ]
 }
 
+[gui]
+
+theme/custom="res://ui/theme/game_theme.tres"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

@@ -59,6 +59,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_normal_resume")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hover_resume")
 text = "CONTINUAR"
 alignment = 1
+focus_neighbor_top = NodePath("../ExitButton")
 
 [node name="RestartButton" type="Button" parent="."]
 layout_mode = 0
@@ -85,3 +86,4 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_normal_exit")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_hover_exit")
 text = "SAIR"
 alignment = 1
+focus_neighbor_bottom = NodePath("../ResumeButton")
